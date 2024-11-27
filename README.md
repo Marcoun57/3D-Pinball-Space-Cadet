@@ -1,1 +1,3 @@
-# Projet
+# Projet Pinball game in Python
+
+
