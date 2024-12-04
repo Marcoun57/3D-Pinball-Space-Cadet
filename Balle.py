@@ -1,3 +1,12 @@
+import pygame
+
+# Initialiser Pygame
+pygame.init()
+
+# Définir les dimensions de l'écran
+WIDTH = 800
+HEIGHT = 600
+
 # Paramètres de la balle
 ball_radius = 15
 ball_x = WIDTH // 2
