@@ -11,7 +11,7 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 
 running = True
-while running : # Boucle principale
+while running: # Boucle principale
 
     for event in pygame.event.get():
 
