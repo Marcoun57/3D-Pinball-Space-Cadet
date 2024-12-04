@@ -1,3 +1,9 @@
+import pygame
+
+# Dimensions de l'écran
+WIDTH = 800
+HEIGHT = 600
+
 # Paramètres des flippers
 flipper_width = 100
 flipper_height = 20
