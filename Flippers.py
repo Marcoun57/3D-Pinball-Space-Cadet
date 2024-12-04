@@ -1,18 +1,27 @@
 import pygame
 
-# Dimensions de l'écran
+# Initialiser Pygame
+pygame.init()
+
+# Définir les dimensions de l'écran
 WIDTH = 800
 HEIGHT = 600
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+
+# Paramètres de la balle
+ball_radius = 15
+ball_x = WIDTH // 2
+ball_y = HEIGHT // 2
+ball_speed_x = 5
+ball_speed_y = 5
 
 # Paramètres des flippers
 flipper_width = 100
 flipper_height = 20
 flipper_speed = 10
-
-# Positions des flippers
-left_flipper_x = WIDTH // 2 - flipper_width - 10
-right_flipper_x = WIDTH // 2 + 10
-flipper_y = HEIGHT - 40  # Flippers à 40 pixels du bas de l'écran
+left_flipper_x = WIDTH // 4 - flipper_width // 2
+right_flipper_x = 3 * WIDTH // 4 - flipper_width // 2
+flipper_y = HEIGHT - 30
 
 # Boucle principale
 running = True
@@ -45,20 +54,14 @@ while running:
     # Vérification des collisions avec les flippers
     if (flipper_y - ball_radius <= ball_y <= flipper_y) and (
         left_flipper_x <= ball_x <= left_flipper_x + flipper_width or
-        right_flipper_x <= ball_x <= right_flipper_x + flipper_width
-    ):
-        ball_speed_y = -ball_speed_y  # La balle rebondit sur les flippers
-    
-    # Effacer l'écran
-    screen.fill(BLACK)
-    
-    # Dessiner la balle
-    pygame.draw.circle(screen, WHITE, (ball_x, ball_y), ball_radius)
-    
-    # Dessiner les flippers
-    pygame.draw.rect(screen, WHITE, (left_flipper_x, flipper_y, flipper_width, flipper_height))
-    pygame.draw.rect(screen, WHITE, (right_flipper_x, flipper_y, flipper_width, flipper_height))
-    
-    pygame.display.flip()  # Rafraîchir l'affichage
+        right_flipper_x <= ball_x <= right_flipper_x + flipper_width):
+        ball_speed_y = -ball_speed_y
+
+    # Dessiner les éléments
+    screen.fill((0, 0, 0))  # Effacer l'écran
+    pygame.draw.circle(screen, (255, 0, 0), (ball_x, ball_y), ball_radius)
+    pygame.draw.rect(screen, (0, 255, 0), (left_flipper_x, flipper_y, flipper_width, flipper_height))
+    pygame.draw.rect(screen, (0, 255, 0), (right_flipper_x, flipper_y, flipper_width, flipper_height))
+    pygame.display.flip()  # Mettre à jour l'affichage
 
 pygame.quit()
