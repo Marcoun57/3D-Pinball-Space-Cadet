@@ -7,3 +7,7 @@ Bienvenue dans notre jeu de flipper, une version moderne du jeu d'arcade classiq
 1. `Pygame` avec la commande : `pip install pygame` dans
 
 C:\Users\USERNAME\AppData\Local\Programs\Python\Python310\Scripts
+
+OU
+
+`python3 -c "import pygame"` dans le terminal
