@@ -11,3 +11,7 @@ C:\Users\USERNAME\AppData\Local\Programs\Python\Python310\Scripts
 OU
 
 `python3 -c "import pygame"` dans le terminal
+
+2. `Pymunk` avec la commande : `pip3 install pymunk` dans le terminal
+
+3. `Pyautogui` avec la commande : `pip3 install pyautogui` dans le terminal
