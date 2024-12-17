@@ -9,28 +9,20 @@ score = 0
 script_name = os.path.basename(__file__) #sys.argv[0].split('/')[-1]
 
 pygame.init()
-screen = pygame.display.set_mode((600, 600))
-
-#pygame.font.init()
-#my_font = pygame.font.SysFont('Comic Sans MS', 30)
-#text_surface = my_font.render('Some Text', True, (0, 255, 0))
-#screen.blit(text_surface, (100,100))
-
-# Clear screen
-#screen.fill(pygame.Color("white"))
+screen = pygame.display.set_mode((1920, 1080))
 
 clock = pygame.time.Clock()
 running = True
 
-### Physics stuff
+### Physique
 space = pymunk.Space()
 space.gravity = (0.0, 900.0)
 draw_options = pymunk.pygame_util.DrawOptions(screen)
 
-## Balls
+## Balles
 balls = []
 
-### walls
+### Murs
 static_lines = [
     pymunk.Segment(space.static_body, (120, 480), (50, 50), 2.0),
     pymunk.Segment(space.static_body, (480, 480), (545, 110), 2.0),
@@ -41,7 +33,6 @@ static_lines = [
     pymunk.Segment(space.static_body, (480,480), (510,480), 2.0),
     pymunk.Segment(space.static_body, (120,480), (140,500), 4.0),
     pymunk.Segment(space.static_body, (480,480), (462,495), 2.0)
-    #pymunk.Segment(space.static_body, (550,50), (545,115), 2.0)
 
 ]
 for line in static_lines:
@@ -53,7 +44,7 @@ fp = [(20, -20),(-132, 0),(20, 20)]
 mass = 100
 moment = pymunk.moment_for_poly(mass, fp)
 
-# right flipper
+# flipper droite
 r_flipper_body = pymunk.Body(mass, moment)
 r_flipper_body.position = 450, 500
 #r_flipper_shape = pymunk.Poly(r_flipper_body, fp)
@@ -67,7 +58,7 @@ j = pymunk.PinJoint(r_flipper_body, r_flipper_joint_body, (0, 0), (0, 0))
 s = pymunk.DampedRotarySpring(r_flipper_body, r_flipper_joint_body, 0.0, 20000000, 900000)
 space.add(j, s)
 
-# left flipper
+# flipper gauche
 l_flipper_body = pymunk.Body(mass, moment)
 l_flipper_body.position = 150, 500
 #l_flipper_shape = pymunk.Poly(l_flipper_body, [(-x, y) for x, y in fp])
@@ -83,7 +74,7 @@ space.add(j, s)
 r_flipper_shape.group = l_flipper_shape.group = 1
 r_flipper_shape.elasticity = l_flipper_shape.elasticity = 0.4
 
-# bumpers (round)
+# bumpers (boules)
 plist = [(230, 100), (370, 100),(300,140)]
 
 body1 = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
@@ -112,7 +103,7 @@ space.add(body3, shape23)
 
 
 
-# bumper (triangle)
+# triangle
 vertices = [(10, -20), (90, 120), (0, 90)]
 body = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
 body.position = (100,240)
@@ -134,7 +125,7 @@ space.add(body, shape4)
 # Add text
 
 
-# Spawning balls
+# Balle de départ
 def addBall():
     global ballbody,shape1
     mass = 1
@@ -229,12 +220,13 @@ rounds = 3
 pygame.font.init()
 
 while running:
-    screen.fill(pygame.Color("white")) # Fill screen white
+    BG = pygame.image.load("bg.jpg")
+    screen.blit(BG, (0, 0))
     pygame.draw.rect(screen,(11, 156, 136),(0,550,610,100))
     my_font = pygame.font.SysFont('Comic Sans MS', 30)
     text_surface = my_font.render(('Score : '+str(score)), True, (0, 255, 0))
     screen.blit(text_surface, (20,550))
-    text_surface2 = my_font.render(('Balls Remaining : '+str(rounds)), True, (0, 255, 0))
+    text_surface2 = my_font.render(('Balles restantes : '+str(rounds)), True, (0, 255, 0))
     screen.blit(text_surface2, (325,550))
 
     for event in pygame.event.get():
@@ -297,4 +289,4 @@ while running:
     ### Flip screen
     pygame.display.flip()
     clock.tick(50)
-    pygame.display.set_caption("PINBALL GAME  |  FPS: " + str(clock.get_fps())[0:4])
+    pygame.display.set_caption("FLIPPER  |  FPS: " + str(clock.get_fps())[0:4])
