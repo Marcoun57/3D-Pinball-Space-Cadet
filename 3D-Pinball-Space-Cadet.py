@@ -24,15 +24,15 @@ balls = []
 
 ### Murs
 static_lines = [
-    pymunk.Segment(space.static_body, (120, 480), (50, 50), 2.0),
-    pymunk.Segment(space.static_body, (480, 480), (545, 110), 2.0),
-    pymunk.Segment(space.static_body, (50, 50), (300, 0), 2.0),
-    pymunk.Segment(space.static_body, (300, 0), (550, 50), 2.0),
-    pymunk.Segment(space.static_body, (510,480), (580,90), 2.0),
-    pymunk.Segment(space.static_body, (580,90), (550,50), 2.0),
-    pymunk.Segment(space.static_body, (480,480), (510,480), 2.0),
-    pymunk.Segment(space.static_body, (120,480), (140,500), 4.0),
-    pymunk.Segment(space.static_body, (480,480), (462,495), 2.0)
+    pymunk.Segment(space.static_body, (120, 480), (50, 50), 2.0), #mur de gauche
+    pymunk.Segment(space.static_body, (480, 480), (545, 110), 2.0), #2 mur de droite
+    pymunk.Segment(space.static_body, (50, 50), (300, 0), 2.0), #angle gauche
+    pymunk.Segment(space.static_body, (300, 0), (550, 50), 2.0), #angle droit
+    pymunk.Segment(space.static_body, (1060,1000), (950,250), 0), #mur de droite
+    pymunk.Segment(space.static_body, (580,90), (550,50), 2.0), # petit mur de droite
+    pymunk.Segment(space.static_body, (1000,1000), (1060,1000), 0), #sol de la balle
+    pymunk.Segment(space.static_body, (120,480), (140,500), 4.0), #ptit truc a gauche
+    pymunk.Segment(space.static_body, (480,480), (462,495), 2.0) #ptit truc a droite
 
 ]
 for line in static_lines:
@@ -41,12 +41,12 @@ for line in static_lines:
 space.add(*static_lines)
 
 fp = [(20, -20),(-132, 0),(20, 20)]
-mass = 100
+mass = 10
 moment = pymunk.moment_for_poly(mass, fp)
 
 # Flipper droite
 r_flipper_body = pymunk.Body(mass, moment)
-r_flipper_body.position = 450, 500
+r_flipper_body.position = 790, 1000
 #r_flipper_shape = pymunk.Poly(r_flipper_body, fp)
 r_flipper_shape = pymunk.Segment(r_flipper_body, (0, 0), (-116, 0), 14)
 space.add(r_flipper_body, r_flipper_shape)
@@ -60,7 +60,7 @@ space.add(j, s)
 
 # Flipper gauche
 l_flipper_body = pymunk.Body(mass, moment)
-l_flipper_body.position = 150, 500
+l_flipper_body.position = 525, 1000
 #l_flipper_shape = pymunk.Poly(l_flipper_body, [(-x, y) for x, y in fp])
 l_flipper_shape = pymunk.Segment(l_flipper_body, (0, 0), (116, 0), 14)
 space.add(l_flipper_body, l_flipper_shape)
@@ -75,7 +75,7 @@ r_flipper_shape.group = l_flipper_shape.group = 1
 r_flipper_shape.elasticity = l_flipper_shape.elasticity = 0.4
 
 # Bumpers (boules)
-plist = [(230, 100), (370, 100),(300,140)]
+plist = [(605, 240), (710, 220),(655,310)]
 
 body1 = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
 body1.position = plist[0]
@@ -106,7 +106,7 @@ space.add(body3, shape23)
 # Triangle
 vertices = [(10, -20), (90, 120), (0, 90)]
 body = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
-body.position = (100,240)
+body.position = (430,770)
 shape3 = pymunk.Poly(body, vertices)
 shape3.elasticity = 1.3
 shape3.collision_type = 6
@@ -115,7 +115,7 @@ space.add(body, shape3)
 
 vertices = [(-10, -20), (-90, 120), (0, 90)]
 body = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
-body.position = (500,240)
+body.position = (880,770)
 shape4 = pymunk.Poly(body, vertices)
 shape4.elasticity = 1.3
 shape4.collision_type = 7
@@ -132,7 +132,7 @@ def addBall():
     radius = 14
     inertia = pymunk.moment_for_circle(mass, 0, radius, (0, 0))
     ballbody = pymunk.Body(mass, inertia)
-    ballbody.position = 500,440
+    ballbody.position = 1025,960
     shape1 = pymunk.Circle(ballbody, radius, (0, 0))
     shape1.elasticity = 0.90
     shape1.collision_type = 0
@@ -220,7 +220,7 @@ rounds = 3
 pygame.font.init()
 
 while running:
-    BG = pygame.image.load("bg.jpg")
+    BG = pygame.image.load("bg.png")
     screen.blit(BG, (0, 0))
     pygame.draw.rect(screen,(11, 156, 136),(0,550,610,100))
     my_font = pygame.font.SysFont('Comic Sans MS', 30)
@@ -255,8 +255,8 @@ while running:
     ### Draw stuff
     space.debug_draw(draw_options)
 
-    r_flipper_body.position = 450, 500
-    l_flipper_body.position = 150, 500
+    r_flipper_body.position = 790, 1000
+    l_flipper_body.position = 525, 1000
     r_flipper_body.velocity = l_flipper_body.velocity = 0, 0
 
     ### Remove any balls outside
@@ -289,4 +289,4 @@ while running:
     ### Flip screen
     pygame.display.flip()
     clock.tick(50)
-    pygame.display.set_caption("FLIPPER  |  FPS: " + str(clock.get_fps())[0:4])
+    pygame.display.set_caption("3D Pinball Space Cadet  |  FPS: " + str(clock.get_fps())[0:4])
