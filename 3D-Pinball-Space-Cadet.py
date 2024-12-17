@@ -6,7 +6,7 @@ from pymunk import Vec2d
 mixer.init()
 global score
 score = 0
-script_name = os.path.basename(__file__) #sys.argv[0].split('/')[-1]
+script_name = os.path.basename(__file__)
 
 pygame.init()
 screen = pygame.display.set_mode((1920, 1080))
@@ -44,7 +44,7 @@ fp = [(20, -20),(-132, 0),(20, 20)]
 mass = 100
 moment = pymunk.moment_for_poly(mass, fp)
 
-# flipper droite
+# Flipper droite
 r_flipper_body = pymunk.Body(mass, moment)
 r_flipper_body.position = 450, 500
 #r_flipper_shape = pymunk.Poly(r_flipper_body, fp)
@@ -58,7 +58,7 @@ j = pymunk.PinJoint(r_flipper_body, r_flipper_joint_body, (0, 0), (0, 0))
 s = pymunk.DampedRotarySpring(r_flipper_body, r_flipper_joint_body, 0.0, 20000000, 900000)
 space.add(j, s)
 
-# flipper gauche
+# Flipper gauche
 l_flipper_body = pymunk.Body(mass, moment)
 l_flipper_body.position = 150, 500
 #l_flipper_shape = pymunk.Poly(l_flipper_body, [(-x, y) for x, y in fp])
@@ -74,7 +74,7 @@ space.add(j, s)
 r_flipper_shape.group = l_flipper_shape.group = 1
 r_flipper_shape.elasticity = l_flipper_shape.elasticity = 0.4
 
-# bumpers (boules)
+# Bumpers (boules)
 plist = [(230, 100), (370, 100),(300,140)]
 
 body1 = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
@@ -103,7 +103,7 @@ space.add(body3, shape23)
 
 
 
-# triangle
+# Triangle
 vertices = [(10, -20), (90, 120), (0, 90)]
 body = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
 body.position = (100,240)
@@ -132,7 +132,7 @@ def addBall():
     radius = 14
     inertia = pymunk.moment_for_circle(mass, 0, radius, (0, 0))
     ballbody = pymunk.Body(mass, inertia)
-    ballbody.position = 500,460
+    ballbody.position = 500,440
     shape1 = pymunk.Circle(ballbody, radius, (0, 0))
     shape1.elasticity = 0.90
     shape1.collision_type = 0
