@@ -1,6 +1,6 @@
 # Projet Pinball en language Python
 
-Bienvenue dans notre jeu de flipper, une version moderne du jeu d'arcade classique. Le jeu commence avec 5 boules. Les joueurs peuvent lancer une boule dans le champ de jeu en appuyant sur la barre d'espace. L'objectif est d'accumuler le plus de points possible. Si le joueur atteint un score de 5000 points, il lance la balle suivante.
+Bienvenue dans notre jeu de 3D Pinball Space Cadet, la version classique fait en language python. Le jeu est un jeu de flipper développé par Maxis et inclus dans certaines versions de Windows (notamment Windows XP). Avec son thème spatial, il propose des missions où le joueur peut gravir les échelons d'une flotte intergalactique en marquant des points. Simple à jouer avec des graphismes 3D immersifs pour l'époque, il est devenu un jeu culte, apprécié pour sa simplicité et sa présence gratuite sur les PC des années 90-2000.
 
 <img src="https://github.com/Marcoun57/3D-Pinball-Space-Cadet/blob/main/bg.png"/> 
 
