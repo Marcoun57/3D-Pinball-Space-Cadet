@@ -24,16 +24,24 @@ balls = []
 
 ### Murs
 static_lines = [
-    pymunk.Segment(space.static_body, (120, 480), (50, 50), 2.0), #mur de gauche
-    pymunk.Segment(space.static_body, (480, 480), (545, 110), 2.0), #2 mur de droite
-    pymunk.Segment(space.static_body, (50, 50), (300, 0), 2.0), #angle gauche
-    pymunk.Segment(space.static_body, (300, 0), (550, 50), 2.0), #angle droit
     pymunk.Segment(space.static_body, (1060,1000), (950,250), 0), #mur de droite
-    pymunk.Segment(space.static_body, (580,90), (550,50), 2.0), # petit mur de droite
-    pymunk.Segment(space.static_body, (1000,1000), (1060,1000), 0), #sol de la balle
-    pymunk.Segment(space.static_body, (120,480), (140,500), 4.0), #ptit truc a gauche
-    pymunk.Segment(space.static_body, (480,480), (462,495), 2.0) #ptit truc a droite
-
+    pymunk.Segment(space.static_body, (1000, 1000), (910, 270), 0), #mur de droite 2
+    pymunk.Segment(space.static_body, (950,250), (915, 175), 0), #angle droit 1
+    pymunk.Segment(space.static_body, (915, 175), (845, 105), 0), #angle droit 2
+    pymunk.Segment(space.static_body, (845, 105), (775, 70), 0), #angle droit 3
+    pymunk.Segment(space.static_body, (775, 70), (690, 55), 0), #angle droit 4
+    pymunk.Segment(space.static_body, (690, 55), (610, 55), 0), #toit
+    pymunk.Segment(space.static_body, (610, 55), (525, 75), 0), #angle gauche 1
+    pymunk.Segment(space.static_body, (525, 75), (495, 45), 0), #angle gauche 2
+    pymunk.Segment(space.static_body, (495, 45), (410, 50), 0), #angle gauche 3
+    pymunk.Segment(space.static_body, (410, 50), (380, 90), 0), #angle gauche 4
+    pymunk.Segment(space.static_body, (380, 90), (380, 120), 0), #angle gauche 5
+    pymunk.Segment(space.static_body, (380, 120), (415, 145), 0), #angle gauche 6
+    pymunk.Segment(space.static_body, (415, 145), (350, 260), 0), #mur gauche 1
+    pymunk.Segment(space.static_body, (350, 260), (355, 350), 0), #mur gauche 2
+    pymunk.Segment(space.static_body, (355, 350), (430, 500), 0), #mur gauche 3
+    pymunk.Segment(space.static_body, (430, 500), (420, 640), 0), #mur gauche 4
+    pymunk.Segment(space.static_body, (1000,1000), (1060,1000), 0) #sol de la balle
 ]
 for line in static_lines:
     line.elasticity = 0.7
@@ -122,7 +130,6 @@ shape4.collision_type = 7
 shape4.color = (191, 48, 48, 255)
 space.add(body, shape4)
 
-# Add text
 
 
 # Balle de départ
@@ -222,12 +229,12 @@ pygame.font.init()
 while running:
     BG = pygame.image.load("bg.png")
     screen.blit(BG, (0, 0))
-    pygame.draw.rect(screen,(11, 156, 136),(0,550,610,100))
-    my_font = pygame.font.SysFont('Comic Sans MS', 30)
-    text_surface = my_font.render(('Score : '+str(score)), True, (0, 255, 0))
-    screen.blit(text_surface, (20,550))
-    text_surface2 = my_font.render(('Balles restantes : '+str(rounds)), True, (0, 255, 0))
-    screen.blit(text_surface2, (325,550))
+    #pygame.draw.rect(screen,(11, 156, 136),(0,550,610,100))
+    #my_font = pygame.font.SysFont('Comic Sans MS', 30)
+    #text_surface = my_font.render(('Score : '+str(score)), True, (0, 255, 0))
+    #screen.blit(text_surface, (20,550))
+    #text_surface2 = my_font.render(('Balles restantes : '+str(rounds)), True, (0, 255, 0))
+    #screen.blit(text_surface2, (325,550))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
