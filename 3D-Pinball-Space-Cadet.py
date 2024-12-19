@@ -25,7 +25,6 @@ balls = []
 ### Murs
 static_lines = [
     pymunk.Segment(space.static_body, (1060,1000), (950,250), 0), #mur de droite
-    pymunk.Segment(space.static_body, (1000, 1000), (910, 270), 0), #mur de droite 2
     pymunk.Segment(space.static_body, (950,250), (915, 175), 0), #angle droit 1
     pymunk.Segment(space.static_body, (915, 175), (845, 105), 0), #angle droit 2
     pymunk.Segment(space.static_body, (845, 105), (775, 70), 0), #angle droit 3
@@ -36,12 +35,46 @@ static_lines = [
     pymunk.Segment(space.static_body, (495, 45), (410, 50), 0), #angle gauche 3
     pymunk.Segment(space.static_body, (410, 50), (380, 90), 0), #angle gauche 4
     pymunk.Segment(space.static_body, (380, 90), (380, 120), 0), #angle gauche 5
-    pymunk.Segment(space.static_body, (380, 120), (415, 145), 0), #angle gauche 6
-    pymunk.Segment(space.static_body, (415, 145), (350, 260), 0), #mur gauche 1
+    pymunk.Segment(space.static_body, (380, 120), (415, 160), 0), #angle gauche 6
+    pymunk.Segment(space.static_body, (415, 160), (350, 260), 0), #mur gauche 1
     pymunk.Segment(space.static_body, (350, 260), (355, 350), 0), #mur gauche 2
     pymunk.Segment(space.static_body, (355, 350), (430, 500), 0), #mur gauche 3
     pymunk.Segment(space.static_body, (430, 500), (420, 640), 0), #mur gauche 4
+    pymunk.Segment(space.static_body, (420, 640), (355, 710), 0), #mur gauche 5
+    pymunk.Segment(space.static_body, (355, 710), (340, 835), 0), #mur gauche 6
+    pymunk.Segment(space.static_body, (340, 835), (530, 980), 0), #mur gauche 7
+
+    pymunk.Segment(space.static_body, (1000, 1000), (910, 270), 0), #mur de droite 2
+    pymunk.Segment(space.static_body, (910, 270), (880, 190), 0), #mur de droite 3
+    pymunk.Segment(space.static_body, (880, 190), (820, 135), 0), #mur de droite 4
+    pymunk.Segment(space.static_body, (820, 135), (760, 105), 0), #mur de droite 5
+    pymunk.Segment(space.static_body, (760, 105), (720, 120), 0), #mur de droite 6
+    pymunk.Segment(space.static_body, (720, 120), (719, 160), 0), #mur de droite 7
+    pymunk.Segment(space.static_body, (719, 160), (750, 180), 0), #mur de droite 8
+    pymunk.Segment(space.static_body, (750, 180), (800, 230), 0), #mur de droite 9
+    pymunk.Segment(space.static_body, (800, 230), (820, 270), 0), #mur de droite 10
+    pymunk.Segment(space.static_body, (820, 270), (780, 360), 0), #mur de droite 11
+    pymunk.Segment(space.static_body, (780, 360), (795, 370), 0), #mur de droite 12
+    pymunk.Segment(space.static_body, (795, 370), (820, 340), 0), #mur de droite 13
+    pymunk.Segment(space.static_body, (820, 340), (880, 370), 0), #mur de droite 14
+    pymunk.Segment(space.static_body, (880, 370), (845, 460), 0), #mur de droite 15
+    pymunk.Segment(space.static_body, (845, 460), (850, 550), 0), #mur de droite 16
+    pymunk.Segment(space.static_body, (850, 550), (905, 585), 0), #mur de droite 17
+    pymunk.Segment(space.static_body, (905, 585), (915, 660), 0), #mur de droite 18
+    pymunk.Segment(space.static_body, (915, 660), (950, 640), 0), #mur de droite 19
+
+    pymunk.Segment(space.static_body, (920, 730), (934, 864), 0), #mur de droite 19
+    pymunk.Segment(space.static_body, (934, 864), (795, 975), 0), #mur de droite 20
+
+    pymunk.Segment(space.static_body, (935, 960), (950, 990), 0), #mur de droite 20
+    pymunk.Segment(space.static_body, (950, 990), (995, 990), 0), #mur de droite 21
+    pymunk.Segment(space.static_body, (935, 960), (850, 1030), 0), #mur de droite 20
+    pymunk.Segment(space.static_body, (850, 1030), (853, 1080), 0), #mur de droite 21
+
+
     pymunk.Segment(space.static_body, (1000,1000), (1060,1000), 0) #sol de la balle
+
+    
 ]
 for line in static_lines:
     line.elasticity = 0.7
@@ -56,7 +89,7 @@ moment = pymunk.moment_for_poly(mass, fp)
 r_flipper_body = pymunk.Body(mass, moment)
 r_flipper_body.position = 790, 1000
 #r_flipper_shape = pymunk.Poly(r_flipper_body, fp)
-r_flipper_shape = pymunk.Segment(r_flipper_body, (0, 0), (-116, 0), 14)
+r_flipper_shape = pymunk.Segment(r_flipper_body, (0, 0), (-116, 100), 10)
 space.add(r_flipper_body, r_flipper_shape)
 
 r_flipper_joint_body = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
@@ -70,7 +103,7 @@ space.add(j, s)
 l_flipper_body = pymunk.Body(mass, moment)
 l_flipper_body.position = 525, 1000
 #l_flipper_shape = pymunk.Poly(l_flipper_body, [(-x, y) for x, y in fp])
-l_flipper_shape = pymunk.Segment(l_flipper_body, (0, 0), (116, 0), 14)
+l_flipper_shape = pymunk.Segment(l_flipper_body, (0, 0), (116, 100), 10)
 space.add(l_flipper_body, l_flipper_shape)
 
 l_flipper_joint_body = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
@@ -83,31 +116,39 @@ r_flipper_shape.group = l_flipper_shape.group = 1
 r_flipper_shape.elasticity = l_flipper_shape.elasticity = 0.4
 
 # Bumpers (boules)
-plist = [(605, 240), (710, 220),(655,310)]
+plist = [(605, 250), (710, 230),(655,310),(445,110)]
 
-body1 = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
+body1 = pymunk.Body(body_type=pymunk.Body.KINEMATIC) #boule de gauche
 body1.position = plist[0]
-shape21 = pymunk.Circle(body1, 20)
+shape21 = pymunk.Circle(body1, 30)
 shape21.elasticity = 1.5
 shape21.collision_type = 3
 shape21.color = (31, 163, 5, 255)
 space.add(body1, shape21)
 
-body2 = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
+body2 = pymunk.Body(body_type=pymunk.Body.KINEMATIC) #boule de droite
 body2.position = plist[1]
-shape22 = pymunk.Circle(body2, 20)
+shape22 = pymunk.Circle(body2, 30)
 shape22.elasticity = 1.5
 shape22.collision_type = 4
 shape22.color = (31, 163, 5, 255)
 space.add(body2, shape22)
 
-body3 = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
+body3 = pymunk.Body(body_type=pymunk.Body.KINEMATIC) #boule du milieu
 body3.position = plist[2]
-shape23 = pymunk.Circle(body3, 20)
+shape23 = pymunk.Circle(body3, 30)
 shape23.elasticity = 1.5
 shape23.collision_type = 5
 shape23.color = (31, 163, 5, 255)
 space.add(body3, shape23)
+
+body4 = pymunk.Body(body_type=pymunk.Body.KINEMATIC) #boule du en haut a gauche
+body4.position = plist[3]
+shape24 = pymunk.Circle(body4, 30)
+shape24.elasticity = 1.5
+shape24.collision_type = 5
+shape24.color = (31, 163, 5, 255)
+space.add(body4, shape24)
 
 
 
