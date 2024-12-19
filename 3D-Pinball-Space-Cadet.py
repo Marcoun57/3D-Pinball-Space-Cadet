@@ -90,7 +90,7 @@ moment = pymunk.moment_for_poly(mass, fp)
 r_flipper_body = pymunk.Body(mass, moment)
 r_flipper_body.position = 790, 1000
 #r_flipper_shape = pymunk.Poly(r_flipper_body, fp)
-r_flipper_shape = pymunk.Segment(r_flipper_body, (0, 0), (-116, 100), 10)
+r_flipper_shape = pymunk.Segment(r_flipper_body, (0, 0), (-76, 60), 10)
 space.add(r_flipper_body, r_flipper_shape)
 
 r_flipper_joint_body = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
@@ -107,7 +107,7 @@ space.add(j, s)
 l_flipper_body = pymunk.Body(mass, moment)
 l_flipper_body.position = 525, 1000
 #l_flipper_shape = pymunk.Poly(l_flipper_body, [(-x, y) for x, y in fp])
-l_flipper_shape = pymunk.Segment(l_flipper_body, (0, 0), (116, 100), 10)
+l_flipper_shape = pymunk.Segment(l_flipper_body, (0, 0), (76, 60), 10)
 space.add(l_flipper_body, l_flipper_shape)
 
 l_flipper_joint_body = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
@@ -125,33 +125,33 @@ plist = [(605, 250), (710, 230),(655,310),(445,110)]
 body1 = pymunk.Body(body_type=pymunk.Body.KINEMATIC) #boule de gauche
 body1.position = plist[0]
 shape21 = pymunk.Circle(body1, 30)
-shape21.elasticity = 1.5
+shape21.elasticity = 1.3
 shape21.collision_type = 3
-shape21.color = (31, 163, 5, 255)
+shape21.visible = False 
 space.add(body1, shape21)
 
 body2 = pymunk.Body(body_type=pymunk.Body.KINEMATIC) #boule de droite
 body2.position = plist[1]
 shape22 = pymunk.Circle(body2, 30)
-shape22.elasticity = 1.5
+shape22.elasticity = 1.3
 shape22.collision_type = 4
-shape22.color = (31, 163, 5, 255)
+shape22.visible = False 
 space.add(body2, shape22)
 
 body3 = pymunk.Body(body_type=pymunk.Body.KINEMATIC) #boule du milieu
 body3.position = plist[2]
 shape23 = pymunk.Circle(body3, 30)
-shape23.elasticity = 1.5
+shape23.elasticity = 1.3
 shape23.collision_type = 5
-shape23.color = (31, 163, 5, 255)
+shape23.visible = False 
 space.add(body3, shape23)
 
 body4 = pymunk.Body(body_type=pymunk.Body.KINEMATIC) #boule du en haut a gauche
 body4.position = plist[3]
 shape24 = pymunk.Circle(body4, 30)
-shape24.elasticity = 1.5
+shape24.elasticity = 1.3
 shape24.collision_type = 5
-shape24.color = (31, 163, 5, 255)
+shape24.visible = False 
 space.add(body4, shape24)
 
 
@@ -161,7 +161,7 @@ vertices = [(22, -45), (78, 125), (10, 80)]
 body = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
 body.position = (430,770)
 shape3 = pymunk.Poly(body, vertices)
-shape3.elasticity = 1.3
+shape3.elasticity = 1.4
 shape3.collision_type = 6
 shape3.color = (191, 48, 48, 255)
 space.add(body, shape3)
@@ -170,7 +170,7 @@ vertices = [(-20, -40), (-80, 125), (-5, 80)]
 body = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
 body.position = (880,770)
 shape4 = pymunk.Poly(body, vertices)
-shape4.elasticity = 1.3
+shape4.elasticity = 1.4
 shape4.collision_type = 7
 shape4.color = (191, 48, 48, 255)
 space.add(body, shape4)
@@ -195,17 +195,17 @@ def addBall():
 # Define collision callback function, will be called when ball touches bumpers
 def bounceOnBump1(space, arbiter,dummy):
     global score
-    score += 10
+    score += 500
     os.system('cls')
     print("SCORE : ",score)
-    mixer.music.load(r'C:\Users\Dimuth De Zoysa\Downloads\PyMunk-Physics-Simulation-main\PyMunk-Physics-Simulation-main\bumperSound01.WAV')
-    mixer.music.play()
+    #mixer.music.load(r'C:\Users\Dimuth De Zoysa\Downloads\PyMunk-Physics-Simulation-main\PyMunk-Physics-Simulation-main\bumperSound01.WAV')
+    #mixer.music.play()
     shape21.color = (0,255,0,255)
     time.sleep(0.06)
     return True
 def bounceOnBump2(space, arbiter,dummy):
     global score
-    score += 10
+    score += 500
     os.system('cls')
     print("SCORE : ",score)
 
@@ -214,7 +214,7 @@ def bounceOnBump2(space, arbiter,dummy):
     return True
 def bounceOnBump3(space, arbiter,dummy):
     global score
-    score += 10
+    score += 500
     os.system('cls')
     print("SCORE : ",score)
 
@@ -223,7 +223,7 @@ def bounceOnBump3(space, arbiter,dummy):
     return True
 def bounceOnBump4(space, arbiter,dummy):
     global score
-    score += 10
+    score += 500
     os.system('cls')
     print("SCORE : ",score)
 
@@ -232,7 +232,7 @@ def bounceOnBump4(space, arbiter,dummy):
     return True
 def bounceOnBump5(space, arbiter,dummy):
     global score
-    score += 10
+    score += 500
     os.system('cls')
     print("SCORE : ",score)
 
@@ -274,12 +274,9 @@ pygame.font.init()
 while running:
     BG = pygame.image.load("bg.png")
     screen.blit(BG, (0, 0))
-    #pygame.draw.rect(screen,(11, 156, 136),(0,550,610,100))
-    #my_font = pygame.font.SysFont('Comic Sans MS', 30)
-    #text_surface = my_font.render(('Score : '+str(score)), True, (0, 255, 0))
-    #screen.blit(text_surface, (20,550))
-    #text_surface2 = my_font.render(('Balles restantes : '+str(rounds)), True, (0, 255, 0))
-    #screen.blit(text_surface2, (325,550))
+    my_font = pygame.font.SysFont('Comic Sans MS', 50)
+    text_surface = my_font.render((str(score)), True, (0, 0, 255))
+    screen.blit(text_surface, (1620,507))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -299,9 +296,9 @@ while running:
 
 
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-            # Check if balls on the spring
+            # Vérifie la balle est sr un ressort
             if ballbody.position.x > 940 and ballbody.position.y < 1060:
-                ballbody.apply_impulse_at_local_point(Vec2d.unit() * -10150, (0, 0))
+                ballbody.apply_impulse_at_local_point(Vec2d.unit() * -6700, (0, 0))
 
 
     ### Draw stuff
@@ -309,7 +306,7 @@ while running:
 
     r_flipper_body.position = 790, 1000
     l_flipper_body.position = 525, 1000
-    r_flipper_body.velocity = l_flipper_body.velocity = 0, 0
+    r_flipper_body.velocity = l_flipper_body.velocity = 3, 3
 
     ### Remove any balls outside
 
