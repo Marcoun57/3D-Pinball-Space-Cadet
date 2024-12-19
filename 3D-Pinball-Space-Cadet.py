@@ -16,7 +16,7 @@ running = True
 
 ### Physique
 space = pymunk.Space()
-space.gravity = (0.0, 900.0)
+space.gravity = (0.0, 5000.0)
 draw_options = pymunk.pygame_util.DrawOptions(screen)
 
 ## Balles
@@ -82,10 +82,11 @@ for line in static_lines:
 space.add(*static_lines)
 
 fp = [(20, -20),(-132, 0),(20, 20)]
-mass = 10
+mass = 30
 moment = pymunk.moment_for_poly(mass, fp)
 
 # Flipper droite
+
 r_flipper_body = pymunk.Body(mass, moment)
 r_flipper_body.position = 790, 1000
 #r_flipper_shape = pymunk.Poly(r_flipper_body, fp)
@@ -99,7 +100,10 @@ j = pymunk.PinJoint(r_flipper_body, r_flipper_joint_body, (0, 0), (0, 0))
 s = pymunk.DampedRotarySpring(r_flipper_body, r_flipper_joint_body, 0.0, 20000000, 900000)
 space.add(j, s)
 
+
+
 # Flipper gauche
+
 l_flipper_body = pymunk.Body(mass, moment)
 l_flipper_body.position = 525, 1000
 #l_flipper_shape = pymunk.Poly(l_flipper_body, [(-x, y) for x, y in fp])
@@ -153,7 +157,7 @@ space.add(body4, shape24)
 
 
 # Triangle
-vertices = [(10, -20), (90, 120), (0, 90)]
+vertices = [(22, -45), (78, 125), (10, 80)]
 body = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
 body.position = (430,770)
 shape3 = pymunk.Poly(body, vertices)
@@ -162,7 +166,7 @@ shape3.collision_type = 6
 shape3.color = (191, 48, 48, 255)
 space.add(body, shape3)
 
-vertices = [(-10, -20), (-90, 120), (0, 90)]
+vertices = [(-20, -40), (-80, 125), (-5, 80)]
 body = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
 body.position = (880,770)
 shape4 = pymunk.Poly(body, vertices)
@@ -176,7 +180,7 @@ space.add(body, shape4)
 # Balle de départ
 def addBall():
     global ballbody,shape1
-    mass = 1
+    mass = 2
     radius = 14
     inertia = pymunk.moment_for_circle(mass, 0, radius, (0, 0))
     ballbody = pymunk.Body(mass, inertia)
@@ -296,8 +300,8 @@ while running:
 
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
             # Check if balls on the spring
-            if ballbody.position.x > 494 and ballbody.position.y < 465:
-                ballbody.apply_impulse_at_local_point(Vec2d.unit() * -1150, (0, 0))
+            if ballbody.position.x > 940 and ballbody.position.y < 1060:
+                ballbody.apply_impulse_at_local_point(Vec2d.unit() * -10150, (0, 0))
 
 
     ### Draw stuff
