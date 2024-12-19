@@ -11,6 +11,22 @@ script_name = os.path.basename(__file__)
 pygame.init()
 screen = pygame.display.set_mode((1920, 1080))
 
+# Load and play the startup sound
+startup_sound = mixer.Sound(r"C:\Users\walte\Documents\3D Pinball\son\WELCOME.mp3")
+startup_sound.play()
+
+# Load flipper sound
+flipper_sound = mixer.Sound(r"C:\Users\walte\Documents\3D Pinball\son\FLIPPER.mp3")
+
+# Load launch sound
+launch_sound = mixer.Sound(r"C:\Users\walte\Documents\3D Pinball\son\LAUNCH.mp3")
+
+# Load ball exit sound
+ball_exit_sound = mixer.Sound(r"C:\Users\walte\Documents\3D Pinball\son\RETRY.mp3")
+
+# GAME OVER sound
+game_over_sound = mixer.Sound(r"C:\Users\walte\Documents\3D Pinball\son\GAME-OVER.mp3")
+
 clock = pygame.time.Clock()
 running = True
 
@@ -198,8 +214,8 @@ def bounceOnBump1(space, arbiter,dummy):
     score += 500
     os.system('cls')
     print("SCORE : ",score)
-    #mixer.music.load(r'C:\Users\Dimuth De Zoysa\Downloads\PyMunk-Physics-Simulation-main\PyMunk-Physics-Simulation-main\bumperSound01.WAV')
-    #mixer.music.play()
+    mixer.music.load(r"C:\Users\walte\Documents\3D Pinball\son\BOULE.mp3") #boule gauche
+    mixer.music.play()
     shape21.color = (0,255,0,255)
     time.sleep(0.06)
     return True
@@ -208,7 +224,8 @@ def bounceOnBump2(space, arbiter,dummy):
     score += 500
     os.system('cls')
     print("SCORE : ",score)
-
+    mixer.music.load(r"C:\Users\walte\Documents\3D Pinball\son\BOULE.mp3") #boule droite
+    mixer.music.play()
     shape22.color = (0,255,0,255)
     time.sleep(0.06)
     return True
@@ -217,7 +234,8 @@ def bounceOnBump3(space, arbiter,dummy):
     score += 500
     os.system('cls')
     print("SCORE : ",score)
-
+    mixer.music.load(r"C:\Users\walte\Documents\3D Pinball\son\BOULE.mp3") #boule du milieu
+    mixer.music.play()
     shape23.color = (0,255,0,255)
     time.sleep(0.06)
     return True
@@ -226,7 +244,8 @@ def bounceOnBump4(space, arbiter,dummy):
     score += 500
     os.system('cls')
     print("SCORE : ",score)
-
+    mixer.music.load(r"C:\Users\walte\Documents\3D Pinball\son\TRIANGLE.mp3") #triangle gauche
+    mixer.music.play()
     shape3.color = (255,0,0,255)
     time.sleep(0.06)
     return True
@@ -235,7 +254,9 @@ def bounceOnBump5(space, arbiter,dummy):
     score += 500
     os.system('cls')
     print("SCORE : ",score)
-
+    print("SCORE : ",score)
+    mixer.music.load(r"C:\Users\walte\Documents\3D Pinball\son\TRIANGLE.mp3") #triangle droite
+    mixer.music.play()
     shape4.color = (255,0,0,255)
     time.sleep(0.06)
     return True
@@ -267,7 +288,9 @@ h5 = space.add_collision_handler(0, 7)
 h5.begin = bounceOnBump5
 h5.separate = SepCol5
 #h.separate = changeColor# Listening for key press events
-addBall()
+
+start_time = pygame.time.get_ticks()
+ball_spawned = False #ne spawn pas au lancement du jeu
 rounds = 3
 pygame.font.init()
 
@@ -289,16 +312,24 @@ while running:
 
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT:
             r_flipper_body.apply_impulse_at_local_point(Vec2d.unit() * -40000, (-100, 0))
+            flipper_sound.play()
 
 
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_LEFT:
             l_flipper_body.apply_impulse_at_local_point(Vec2d.unit() * 40000, (-100, 0))
+            flipper_sound.play()
 
 
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
             # Vérifie la balle est sr un ressort
             if ballbody.position.x > 940 and ballbody.position.y < 1060:
                 ballbody.apply_impulse_at_local_point(Vec2d.unit() * -6700, (0, 0))
+                launch_sound.play()
+
+        # vérifie si 6 secondes se sont écoulées depuis le début du jeu
+    if not ball_spawned and pygame.time.get_ticks() - start_time > 6000:
+        addBall()
+        ball_spawned = True
 
 
     ### Draw stuff
@@ -314,9 +345,11 @@ while running:
     for ball in balls:
         if ball.body.position.get_distance((300, 300)) > 1000:
             to_remove.append(ball)
+            ball_exit_sound.play() 
             #GameOver after 3 rounds of playing
             rounds -= 1
             if rounds <= 0 :
+                game_over_sound.play() 
                 print('GAME OVER')
                 rounds = 0
                 res = pyautogui.confirm(text='Restart Game ?', title='Game Over', buttons=['Yes', 'No'])
