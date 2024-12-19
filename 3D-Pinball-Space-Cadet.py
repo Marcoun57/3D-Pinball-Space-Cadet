@@ -3,6 +3,7 @@ import pygame,pymunk,pyautogui
 import pymunk.pygame_util
 from pygame import mixer
 from pymunk import Vec2d
+
 mixer.init()
 global score
 score = 0
@@ -26,6 +27,18 @@ ball_exit_sound = mixer.Sound(r"C:\Users\walte\Documents\3D Pinball\son\RETRY.mp
 
 # GAME OVER sound
 game_over_sound = mixer.Sound(r"C:\Users\walte\Documents\3D Pinball\son\GAME-OVER.mp3")
+
+# Load ball image
+ball_image = pygame.image.load(r"C:\Users\walte\Documents\3D Pinball\texture\balle.png")
+ball_image = pygame.transform.scale(ball_image, (30, 30))  # Adjust the size as needed
+
+# Load flipper images
+flipper_image_left = pygame.image.load(r"C:\Users\walte\Documents\3D Pinball\texture\flipper_g.png")
+flipper_image_left = pygame.transform.scale(flipper_image_left, (110, 90))  # Adjust the size as needed
+
+flipper_image_right = pygame.image.load(r"C:\Users\walte\Documents\3D Pinball\texture\flipper_d.png")
+flipper_image_right = pygame.transform.scale(flipper_image_right, (100, 20))  # Adjust the size as needed
+
 
 clock = pygame.time.Clock()
 running = True
@@ -101,12 +114,15 @@ fp = [(20, -20),(-132, 0),(20, 20)]
 mass = 30
 moment = pymunk.moment_for_poly(mass, fp)
 
+
+
 # Flipper droite
 
 r_flipper_body = pymunk.Body(mass, moment)
 r_flipper_body.position = 790, 1000
 #r_flipper_shape = pymunk.Poly(r_flipper_body, fp)
 r_flipper_shape = pymunk.Segment(r_flipper_body, (0, 0), (-76, 60), 10)
+r_flipper_shape.visible = False  # Hide the debug draw shape
 space.add(r_flipper_body, r_flipper_shape)
 
 r_flipper_joint_body = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
@@ -117,13 +133,13 @@ s = pymunk.DampedRotarySpring(r_flipper_body, r_flipper_joint_body, 0.0, 2000000
 space.add(j, s)
 
 
-
 # Flipper gauche
 
 l_flipper_body = pymunk.Body(mass, moment)
 l_flipper_body.position = 525, 1000
 #l_flipper_shape = pymunk.Poly(l_flipper_body, [(-x, y) for x, y in fp])
 l_flipper_shape = pymunk.Segment(l_flipper_body, (0, 0), (76, 60), 10)
+l_flipper_shape.visible = False
 space.add(l_flipper_body, l_flipper_shape)
 
 l_flipper_joint_body = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
@@ -134,6 +150,35 @@ space.add(j, s)
 
 r_flipper_shape.group = l_flipper_shape.group = 1
 r_flipper_shape.elasticity = l_flipper_shape.elasticity = 0.4
+
+
+def draw_flippers(screen, l_flipper_body, r_flipper_body):
+    # Draw left flipper
+    l_flipper_pos = l_flipper_body.position
+    l_flipper_angle = l_flipper_body.angle
+    rotated_left_flipper = pygame.transform.rotate(flipper_image_left, -l_flipper_angle * 180 / 3.14159)
+    
+    # Calculer le point de pivot pour le flipper gauche
+    pivot_x = 0  # Point de pivot à gauche de l'image
+    pivot_y = rotated_left_flipper.get_height() // 2
+    screen.blit(rotated_left_flipper, 
+                (l_flipper_pos.x - pivot_x, 
+                 l_flipper_pos.y - pivot_y))
+
+    # Draw right flipper
+    r_flipper_pos = r_flipper_body.position
+    r_flipper_angle = r_flipper_body.angle
+    rotated_right_flipper = pygame.transform.rotate(flipper_image_right, -r_flipper_angle * 180 / 3.14159)
+    
+    # Calculer le point de pivot pour le flipper droit
+    pivot_x = rotated_right_flipper.get_width()  # Point de pivot à droite de l'image
+    pivot_y = rotated_right_flipper.get_height() // 2
+    screen.blit(rotated_right_flipper, 
+                (r_flipper_pos.x - pivot_x,
+                 r_flipper_pos.y - pivot_y))
+
+
+
 
 # Bumpers (boules)
 plist = [(605, 250), (710, 230),(655,310),(445,110)]
@@ -195,18 +240,22 @@ space.add(body, shape4)
 
 # Balle de départ
 def addBall():
-    global ballbody,shape1
+    global ballbody, shape1
     mass = 2
     radius = 14
     inertia = pymunk.moment_for_circle(mass, 0, radius, (0, 0))
     ballbody = pymunk.Body(mass, inertia)
-    ballbody.position = 1025,960
+    ballbody.position = 1025, 960
     shape1 = pymunk.Circle(ballbody, radius, (0, 0))
     shape1.elasticity = 0.90
     shape1.collision_type = 0
     space.add(ballbody, shape1)
     balls.append(shape1)
 
+def draw_balls(screen, balls):
+    for ball in balls:
+        x, y = ball.body.position
+        screen.blit(ball_image, (x - 15, y - 15))
 
 # Define collision callback function, will be called when ball touches bumpers
 def bounceOnBump1(space, arbiter,dummy):
@@ -294,6 +343,7 @@ ball_spawned = False #ne spawn pas au lancement du jeu
 rounds = 3
 pygame.font.init()
 
+
 while running:
     BG = pygame.image.load("bg.png")
     screen.blit(BG, (0, 0))
@@ -338,6 +388,10 @@ while running:
     r_flipper_body.position = 790, 1000
     l_flipper_body.position = 525, 1000
     r_flipper_body.velocity = l_flipper_body.velocity = 3, 3
+
+    space.debug_draw(draw_options)
+    draw_balls(screen, balls)
+    draw_flippers(screen, l_flipper_body, r_flipper_body)  # Add this line
 
     ### Remove any balls outside
 
