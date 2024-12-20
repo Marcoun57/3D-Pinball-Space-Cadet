@@ -158,24 +158,20 @@ def draw_flippers(screen, l_flipper_body, r_flipper_body):
     l_flipper_angle = l_flipper_body.angle
     rotated_left_flipper = pygame.transform.rotate(flipper_image_left, -l_flipper_angle * 180 / 3.14159)
     
-    # Calculer le point de pivot pour le flipper gauche
-    pivot_x = 0  # Point de pivot à gauche de l'image
-    pivot_y = rotated_left_flipper.get_height() // 2
-    screen.blit(rotated_left_flipper, 
-                (l_flipper_pos.x - pivot_x, 
-                 l_flipper_pos.y - pivot_y))
+    # Point de pivot au coin supérieur gauche pour le flipper gauche
+    rect = rotated_left_flipper.get_rect()
+    rect.topleft = (l_flipper_pos.x, l_flipper_pos.y - rect.height//2)
+    screen.blit(rotated_left_flipper, rect)
 
     # Draw right flipper
     r_flipper_pos = r_flipper_body.position
     r_flipper_angle = r_flipper_body.angle
     rotated_right_flipper = pygame.transform.rotate(flipper_image_right, -r_flipper_angle * 180 / 3.14159)
     
-    # Calculer le point de pivot pour le flipper droit
-    pivot_x = rotated_right_flipper.get_width()  # Point de pivot à droite de l'image
-    pivot_y = rotated_right_flipper.get_height() // 2
-    screen.blit(rotated_right_flipper, 
-                (r_flipper_pos.x - pivot_x,
-                 r_flipper_pos.y - pivot_y))
+    # Point de pivot au coin supérieur gauche pour le flipper droit
+    rect = rotated_right_flipper.get_rect()
+    rect.topleft = (r_flipper_pos.x - rect.width, r_flipper_pos.y - rect.height//2)
+    screen.blit(rotated_right_flipper, rect)
 
 
 
