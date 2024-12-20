@@ -13,30 +13,30 @@ pygame.init()
 screen = pygame.display.set_mode((1920, 1080))
 
 # Load and play the startup sound
-startup_sound = mixer.Sound(r"C:\Users\walte\Documents\3D Pinball\son\WELCOME.mp3")
+startup_sound = mixer.Sound(r"son\WELCOME.mp3")
 startup_sound.play()
 
 # Load flipper sound
-flipper_sound = mixer.Sound(r"C:\Users\walte\Documents\3D Pinball\son\FLIPPER.mp3")
+flipper_sound = mixer.Sound(r"son\FLIPPER.mp3")
 
 # Load launch sound
-launch_sound = mixer.Sound(r"C:\Users\walte\Documents\3D Pinball\son\LAUNCH.mp3")
+launch_sound = mixer.Sound(r"son\LAUNCH.mp3")
 
 # Load ball exit sound
-ball_exit_sound = mixer.Sound(r"C:\Users\walte\Documents\3D Pinball\son\RETRY.mp3")
+ball_exit_sound = mixer.Sound(r"son\RETRY.mp3")
 
 # GAME OVER sound
-game_over_sound = mixer.Sound(r"C:\Users\walte\Documents\3D Pinball\son\GAME-OVER.mp3")
+game_over_sound = mixer.Sound(r"son\GAME-OVER.mp3")
 
 # Load ball image
-ball_image = pygame.image.load(r"C:\Users\walte\Documents\3D Pinball\texture\balle.png")
+ball_image = pygame.image.load(r"texture\balle.png")
 ball_image = pygame.transform.scale(ball_image, (30, 30))  # Adjust the size as needed
 
 # Load flipper images
-flipper_image_left = pygame.image.load(r"C:\Users\walte\Documents\3D Pinball\texture\flipper_g.png")
+flipper_image_left = pygame.image.load(r"texture\flipper_g.png")
 flipper_image_left = pygame.transform.scale(flipper_image_left, (110, 90))  # Adjust the size as needed
 
-flipper_image_right = pygame.image.load(r"C:\Users\walte\Documents\3D Pinball\texture\flipper_d.png")
+flipper_image_right = pygame.image.load(r"texture\flipper_d.png")
 flipper_image_right = pygame.transform.scale(flipper_image_right, (100, 20))  # Adjust the size as needed
 
 
@@ -212,7 +212,6 @@ shape24.visible = False
 space.add(body4, shape24)
 
 
-
 # Triangle
 vertices = [(22, -45), (78, 125), (10, 80)]
 body = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
@@ -220,7 +219,7 @@ body.position = (430,770)
 shape3 = pymunk.Poly(body, vertices)
 shape3.elasticity = 1.4
 shape3.collision_type = 6
-shape3.color = (191, 48, 48, 255)
+shape3.visible = False 
 space.add(body, shape3)
 
 vertices = [(-20, -40), (-80, 125), (-5, 80)]
@@ -229,7 +228,7 @@ body.position = (880,770)
 shape4 = pymunk.Poly(body, vertices)
 shape4.elasticity = 1.4
 shape4.collision_type = 7
-shape4.color = (191, 48, 48, 255)
+shape4.visible = False 
 space.add(body, shape4)
 
 
@@ -253,15 +252,15 @@ def draw_balls(screen, balls):
         x, y = ball.body.position
         screen.blit(ball_image, (x - 15, y - 15))
 
+
 # Define collision callback function, will be called when ball touches bumpers
 def bounceOnBump1(space, arbiter,dummy):
     global score
     score += 500
     os.system('cls')
     print("SCORE : ",score)
-    mixer.music.load(r"C:\Users\walte\Documents\3D Pinball\son\BOULE.mp3") #boule gauche
+    mixer.music.load(r"son\BOULE.mp3") #boule gauche
     mixer.music.play()
-    shape21.color = (0,255,0,255)
     time.sleep(0.06)
     return True
 def bounceOnBump2(space, arbiter,dummy):
@@ -269,9 +268,8 @@ def bounceOnBump2(space, arbiter,dummy):
     score += 500
     os.system('cls')
     print("SCORE : ",score)
-    mixer.music.load(r"C:\Users\walte\Documents\3D Pinball\son\BOULE.mp3") #boule droite
+    mixer.music.load(r"son\BOULE.mp3") #boule droite
     mixer.music.play()
-    shape22.color = (0,255,0,255)
     time.sleep(0.06)
     return True
 def bounceOnBump3(space, arbiter,dummy):
@@ -279,9 +277,8 @@ def bounceOnBump3(space, arbiter,dummy):
     score += 500
     os.system('cls')
     print("SCORE : ",score)
-    mixer.music.load(r"C:\Users\walte\Documents\3D Pinball\son\BOULE.mp3") #boule du milieu
+    mixer.music.load(r"son\BOULE.mp3") #boule du milieu
     mixer.music.play()
-    shape23.color = (0,255,0,255)
     time.sleep(0.06)
     return True
 def bounceOnBump4(space, arbiter,dummy):
@@ -289,9 +286,8 @@ def bounceOnBump4(space, arbiter,dummy):
     score += 500
     os.system('cls')
     print("SCORE : ",score)
-    mixer.music.load(r"C:\Users\walte\Documents\3D Pinball\son\TRIANGLE.mp3") #triangle gauche
+    mixer.music.load(r"son\TRIANGLE.mp3") #triangle gauche
     mixer.music.play()
-    shape3.color = (255,0,0,255)
     time.sleep(0.06)
     return True
 def bounceOnBump5(space, arbiter,dummy):
@@ -300,9 +296,8 @@ def bounceOnBump5(space, arbiter,dummy):
     os.system('cls')
     print("SCORE : ",score)
     print("SCORE : ",score)
-    mixer.music.load(r"C:\Users\walte\Documents\3D Pinball\son\TRIANGLE.mp3") #triangle droite
+    mixer.music.load(r"son\TRIANGLE.mp3") #triangle droite
     mixer.music.play()
-    shape4.color = (255,0,0,255)
     time.sleep(0.06)
     return True
 def SepCol1(space,arbiter,dummy):
