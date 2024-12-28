@@ -73,15 +73,26 @@ static_lines = [
     pymunk.Segment(space.static_body, (355, 710), (340, 835), 0), #mur gauche 6
     pymunk.Segment(space.static_body, (340, 835), (530, 980), 0), #mur gauche 7
 
-    pymunk.Segment(space.static_body, (405, 240), (393, 280), 0), #mur ile 1
-    pymunk.Segment(space.static_body, (393, 280), (400, 320), 0), #mur ile 2
-    pymunk.Segment(space.static_body, (400, 320), (420, 370), 0), #mur ile 3
-    pymunk.Segment(space.static_body, (420, 370), (453, 413), 0), #mur ile 4
-    pymunk.Segment(space.static_body, (453, 413), (525, 370), 0), #mur ile 5
-    pymunk.Segment(space.static_body, (525, 370), (420, 320), 0), #mur ile 6
-    pymunk.Segment(space.static_body, (420, 320), (405, 280), 0), #mur ile 7
-    pymunk.Segment(space.static_body, (405, 280), (412, 240), 0), #mur ile 8
-    pymunk.Segment(space.static_body, (412, 240), (405, 240), 0), #mur ile 9
+    pymunk.Segment(space.static_body, (405, 240), (393, 280), 0), #mur ile gauche 1
+    pymunk.Segment(space.static_body, (393, 280), (400, 320), 0), #mur ile gauche 2
+    pymunk.Segment(space.static_body, (400, 320), (420, 370), 0), #mur ile gauche 3
+    pymunk.Segment(space.static_body, (420, 370), (453, 413), 0), #mur ile gauche 4
+    pymunk.Segment(space.static_body, (453, 413), (525, 370), 0), #mur ile gauche 5
+    pymunk.Segment(space.static_body, (525, 370), (420, 320), 0), #mur ile gauche 6
+    pymunk.Segment(space.static_body, (420, 320), (405, 280), 0), #mur ile gauche 7
+    pymunk.Segment(space.static_body, (405, 280), (412, 240), 0), #mur ile gauche 8
+    pymunk.Segment(space.static_body, (412, 240), (405, 240), 0), #mur ile gauche 9
+
+    pymunk.Segment(space.static_body, (515, 185), (590, 150), 0), #mur ile milieu 1
+    pymunk.Segment(space.static_body, (590, 150), (590, 120), 0), #mur ile milieu 2
+    pymunk.Segment(space.static_body, (590, 120), (562, 105), 0), #mur ile milieu 3
+    pymunk.Segment(space.static_body, (562, 105), (520, 140), 0), #mur ile milieu 4
+    pymunk.Segment(space.static_body, (520, 140), (515, 185), 0), #mur ile milieu 5
+
+    pymunk.Segment(space.static_body, (620, 310), (600, 320), 0), #mur ile droite 1
+    pymunk.Segment(space.static_body, (600, 320), (600, 340), 0), #mur ile droite 2
+    pymunk.Segment(space.static_body, (600, 340), (690, 360), 0), #mur ile droite 3
+    pymunk.Segment(space.static_body, (690, 360), (685, 330), 0), #mur ile droite 4
 
     pymunk.Segment(space.static_body, (1000, 1000), (910, 270), 0), #mur de droite 2
     pymunk.Segment(space.static_body, (910, 270), (880, 190), 0), #mur de droite 3
@@ -115,6 +126,8 @@ static_lines = [
 
     
 ]
+
+
 for line in static_lines:
     line.elasticity = 0.7
     line.group = 1
