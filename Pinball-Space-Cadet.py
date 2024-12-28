@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import random,datetime,time,os,sys
 import pygame,pymunk,pyautogui
 import pymunk.pygame_util
@@ -72,6 +73,16 @@ static_lines = [
     pymunk.Segment(space.static_body, (420, 640), (355, 710), 0), #mur gauche 5
     pymunk.Segment(space.static_body, (355, 710), (340, 835), 0), #mur gauche 6
     pymunk.Segment(space.static_body, (340, 835), (530, 980), 0), #mur gauche 7
+
+    pymunk.Segment(space.static_body, (405, 240), (393, 280), 0), #mur ile 1
+    pymunk.Segment(space.static_body, (393, 280), (400, 320), 0), #mur ile 2
+    pymunk.Segment(space.static_body, (400, 320), (420, 370), 0), #mur ile 3
+    pymunk.Segment(space.static_body, (420, 370), (453, 413), 0), #mur ile 4
+    pymunk.Segment(space.static_body, (453, 413), (525, 370), 0), #mur ile 5
+    pymunk.Segment(space.static_body, (525, 370), (420, 320), 0), #mur ile 6
+    pymunk.Segment(space.static_body, (420, 320), (405, 280), 0), #mur ile 7
+    pymunk.Segment(space.static_body, (405, 280), (412, 240), 0), #mur ile 8
+    pymunk.Segment(space.static_body, (412, 240), (405, 240), 0), #mur ile 9
 
     pymunk.Segment(space.static_body, (1000, 1000), (910, 270), 0), #mur de droite 2
     pymunk.Segment(space.static_body, (910, 270), (880, 190), 0), #mur de droite 3
