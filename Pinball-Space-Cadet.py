@@ -1,5 +1,5 @@
-import random,datetime,time,os,sys
-import pygame,pymunk,pyautogui
+import random, datetime, time, os, sys
+import pygame, pymunk, pyautogui
 import pymunk.pygame_util
 from pygame import mixer
 from pymunk import Vec2d
@@ -12,32 +12,32 @@ script_name = os.path.basename(__file__)
 pygame.init()
 screen = pygame.display.set_mode((1920, 1080))
 
-# Load and play the startup sound
+# Charge le son de démarrage
 startup_sound = mixer.Sound(r"son\WELCOME.mp3")
 startup_sound.play()
 
-# Load flipper sound
+# Charge le son du flipper
 flipper_sound = mixer.Sound(r"son\FLIPPER.mp3")
 
-# Load launch sound
+# Charge le son de lancement
 launch_sound = mixer.Sound(r"son\LAUNCH.mp3")
 
-# Load ball exit sound
+# Charge le son de sortie de la balle
 ball_exit_sound = mixer.Sound(r"son\RETRY.mp3")
 
-# GAME OVER sound
+# Son de fin de partie
 game_over_sound = mixer.Sound(r"son\GAME-OVER.mp3")
 
-# Load ball image
+# Charge de l'image de la balle
 ball_image = pygame.image.load(r"texture\balle.png")
-ball_image = pygame.transform.scale(ball_image, (30, 30))  # Adjust the size as needed
+ball_image = pygame.transform.scale(ball_image, (30, 30))  # Ajuste la taille de l'image
 
-# Load flipper images
+# Charge les images des flippers
 flipper_image_left = pygame.image.load(r"texture\flipper_g.png")
-flipper_image_left = pygame.transform.scale(flipper_image_left, (110, 90))  # Adjust the size as needed
+flipper_image_left = pygame.transform.scale(flipper_image_left, (110, 90))  # Ajuste la taille de l'image
 
 flipper_image_right = pygame.image.load(r"texture\flipper_d.png")
-flipper_image_right = pygame.transform.scale(flipper_image_right, (100, 20))  # Adjust the size as needed
+flipper_image_right = pygame.transform.scale(flipper_image_right, (100, 20))  # Ajuste la taille de l'image
 
 
 clock = pygame.time.Clock()
@@ -48,7 +48,7 @@ space = pymunk.Space()
 space.gravity = (0.0, 5000.0)
 draw_options = pymunk.pygame_util.DrawOptions(screen)
 
-## Balles
+### Balles
 balls = []
 
 ### Murs
@@ -139,13 +139,12 @@ moment = pymunk.moment_for_poly(mass, fp)
 
 
 
-# Flipper droite
-
+### Flipper droit
 r_flipper_body = pymunk.Body(mass, moment)
 r_flipper_body.position = 790, 1000
 #r_flipper_shape = pymunk.Poly(r_flipper_body, fp)
 r_flipper_shape = pymunk.Segment(r_flipper_body, (0, 0), (-76, 60), 10)
-r_flipper_shape.visible = False  # Hide the debug draw shape
+r_flipper_shape.visible = False  # Cache la forme de débogage
 space.add(r_flipper_body, r_flipper_shape)
 
 r_flipper_joint_body = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
@@ -156,8 +155,7 @@ s = pymunk.DampedRotarySpring(r_flipper_body, r_flipper_joint_body, 0.0, 2000000
 space.add(j, s)
 
 
-# Flipper gauche
-
+### Flipper gauche
 l_flipper_body = pymunk.Body(mass, moment)
 l_flipper_body.position = 525, 1000
 #l_flipper_shape = pymunk.Poly(l_flipper_body, [(-x, y) for x, y in fp])
@@ -176,7 +174,7 @@ r_flipper_shape.elasticity = l_flipper_shape.elasticity = 0.4
 
 
 def draw_flippers(screen, l_flipper_body, r_flipper_body):
-    # Draw left flipper
+    # Dessine le flipper de gauche
     l_flipper_pos = l_flipper_body.position
     l_flipper_angle = l_flipper_body.angle
     rotated_left_flipper = pygame.transform.rotate(flipper_image_left, -l_flipper_angle * 180 / 3.14159)
@@ -186,7 +184,7 @@ def draw_flippers(screen, l_flipper_body, r_flipper_body):
     rect.topleft = (l_flipper_pos.x, l_flipper_pos.y - rect.height//2)
     screen.blit(rotated_left_flipper, rect)
 
-    # Draw right flipper
+    # Dessine le flipper de droite
     r_flipper_pos = r_flipper_body.position
     r_flipper_angle = r_flipper_body.angle
     rotated_right_flipper = pygame.transform.rotate(flipper_image_right, -r_flipper_angle * 180 / 3.14159)
@@ -199,10 +197,10 @@ def draw_flippers(screen, l_flipper_body, r_flipper_body):
 
 
 
-# Bumpers (boules)
+### Bumpers (boules)
 plist = [(605, 250), (710, 230),(655,310),(445,110)]
 
-body1 = pymunk.Body(body_type=pymunk.Body.KINEMATIC) #boule de gauche
+body1 = pymunk.Body(body_type=pymunk.Body.KINEMATIC) # Boule de gauche
 body1.position = plist[0]
 shape21 = pymunk.Circle(body1, 30)
 shape21.elasticity = 1.3
@@ -210,7 +208,7 @@ shape21.collision_type = 3
 shape21.visible = False 
 space.add(body1, shape21)
 
-body2 = pymunk.Body(body_type=pymunk.Body.KINEMATIC) #boule de droite
+body2 = pymunk.Body(body_type=pymunk.Body.KINEMATIC) # Boule de droite
 body2.position = plist[1]
 shape22 = pymunk.Circle(body2, 30)
 shape22.elasticity = 1.3
@@ -218,7 +216,7 @@ shape22.collision_type = 4
 shape22.visible = False 
 space.add(body2, shape22)
 
-body3 = pymunk.Body(body_type=pymunk.Body.KINEMATIC) #boule du milieu
+body3 = pymunk.Body(body_type=pymunk.Body.KINEMATIC) # Boule du milieu
 body3.position = plist[2]
 shape23 = pymunk.Circle(body3, 30)
 shape23.elasticity = 1.3
@@ -226,7 +224,7 @@ shape23.collision_type = 5
 shape23.visible = False 
 space.add(body3, shape23)
 
-body4 = pymunk.Body(body_type=pymunk.Body.KINEMATIC) #boule du en haut a gauche
+body4 = pymunk.Body(body_type=pymunk.Body.KINEMATIC) # Boule du en haut a gauche
 body4.position = plist[3]
 shape24 = pymunk.Circle(body4, 30)
 shape24.elasticity = 1.3
@@ -405,10 +403,9 @@ while running:
 
     space.debug_draw(draw_options)
     draw_balls(screen, balls)
-    draw_flippers(screen, l_flipper_body, r_flipper_body)  # Add this line
+    draw_flippers(screen, l_flipper_body, r_flipper_body)  # Ajoute la ligne
 
     ### Remove any balls outside
-
     to_remove = []
     for ball in balls:
         if ball.body.position.get_distance((300, 300)) > 1000:
