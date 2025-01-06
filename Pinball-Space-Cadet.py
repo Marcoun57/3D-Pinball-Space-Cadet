@@ -433,7 +433,7 @@ while running:
     for x in range(5):
         space.step(dt)
 
-    ### Flip screen
+    ### Fenêtre du jeu
     pygame.display.flip()
     clock.tick(50)
     pygame.display.set_caption("3D Pinball Space Cadet  |  FPS: " + str(clock.get_fps())[0:4])
