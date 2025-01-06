@@ -53,76 +53,75 @@ balls = []
 
 ### Murs
 static_lines = [
-    pymunk.Segment(space.static_body, (1060,1000), (950,250), 0), #mur de droite
-    pymunk.Segment(space.static_body, (950,250), (915, 175), 0), #angle droit 1
-    pymunk.Segment(space.static_body, (915, 175), (845, 105), 0), #angle droit 2
-    pymunk.Segment(space.static_body, (845, 105), (775, 70), 0), #angle droit 3
-    pymunk.Segment(space.static_body, (775, 70), (690, 55), 0), #angle droit 4
-    pymunk.Segment(space.static_body, (690, 55), (610, 55), 0), #toit
-    pymunk.Segment(space.static_body, (610, 55), (525, 75), 0), #angle gauche 1
-    pymunk.Segment(space.static_body, (525, 75), (495, 45), 0), #angle gauche 2
-    pymunk.Segment(space.static_body, (495, 45), (410, 50), 0), #angle gauche 3
-    pymunk.Segment(space.static_body, (410, 50), (380, 90), 0), #angle gauche 4
-    pymunk.Segment(space.static_body, (380, 90), (380, 120), 0), #angle gauche 5
-    pymunk.Segment(space.static_body, (380, 120), (415, 160), 0), #angle gauche 6
-    pymunk.Segment(space.static_body, (415, 160), (350, 260), 0), #mur gauche 1
-    pymunk.Segment(space.static_body, (350, 260), (355, 350), 0), #mur gauche 2
-    pymunk.Segment(space.static_body, (355, 350), (430, 500), 0), #mur gauche 3
-    pymunk.Segment(space.static_body, (430, 500), (420, 640), 0), #mur gauche 4
-    pymunk.Segment(space.static_body, (420, 640), (355, 710), 0), #mur gauche 5
-    pymunk.Segment(space.static_body, (355, 710), (340, 835), 0), #mur gauche 6
-    pymunk.Segment(space.static_body, (340, 835), (530, 980), 0), #mur gauche 7
+    pymunk.Segment(space.static_body, (1060,1000), (950,250), 0), # Mur de droite
+    pymunk.Segment(space.static_body, (950,250), (915, 175), 0), # Angle droit 1
+    pymunk.Segment(space.static_body, (915, 175), (845, 105), 0), # Angle droit 2
+    pymunk.Segment(space.static_body, (845, 105), (775, 70), 0), # Angle droit 3
+    pymunk.Segment(space.static_body, (775, 70), (690, 55), 0), # Angle droit 4
+    
+    pymunk.Segment(space.static_body, (690, 55), (610, 55), 0), # Toit
 
-    pymunk.Segment(space.static_body, (405, 240), (393, 280), 0), #mur ile gauche 1
-    pymunk.Segment(space.static_body, (393, 280), (400, 320), 0), #mur ile gauche 2
-    pymunk.Segment(space.static_body, (400, 320), (420, 370), 0), #mur ile gauche 3
-    pymunk.Segment(space.static_body, (420, 370), (453, 413), 0), #mur ile gauche 4
-    pymunk.Segment(space.static_body, (453, 413), (525, 370), 0), #mur ile gauche 5
-    pymunk.Segment(space.static_body, (525, 370), (420, 320), 0), #mur ile gauche 6
-    pymunk.Segment(space.static_body, (420, 320), (405, 280), 0), #mur ile gauche 7
-    pymunk.Segment(space.static_body, (405, 280), (412, 240), 0), #mur ile gauche 8
-    pymunk.Segment(space.static_body, (412, 240), (405, 240), 0), #mur ile gauche 9
+    pymunk.Segment(space.static_body, (610, 55), (525, 75), 0), # Angle gauche 1
+    pymunk.Segment(space.static_body, (525, 75), (495, 45), 0), # Angle gauche 2
+    pymunk.Segment(space.static_body, (495, 45), (410, 50), 0), # Angle gauche 3
+    pymunk.Segment(space.static_body, (410, 50), (380, 90), 0), # Angle gauche 4
+    pymunk.Segment(space.static_body, (380, 90), (380, 120), 0), # Angle gauche 5
+    pymunk.Segment(space.static_body, (380, 120), (415, 160), 0), # Angle gauche 6
 
-    pymunk.Segment(space.static_body, (515, 185), (590, 150), 0), #mur ile milieu 1
-    pymunk.Segment(space.static_body, (590, 150), (590, 120), 0), #mur ile milieu 2
-    pymunk.Segment(space.static_body, (590, 120), (562, 105), 0), #mur ile milieu 3
-    pymunk.Segment(space.static_body, (562, 105), (520, 140), 0), #mur ile milieu 4
-    pymunk.Segment(space.static_body, (520, 140), (515, 185), 0), #mur ile milieu 5
+    pymunk.Segment(space.static_body, (415, 160), (350, 260), 0), # Mur gauche 1
+    pymunk.Segment(space.static_body, (350, 260), (355, 350), 0), # Mur gauche 2
+    pymunk.Segment(space.static_body, (355, 350), (430, 500), 0), # Mur gauche 3
+    pymunk.Segment(space.static_body, (430, 500), (420, 640), 0), # Mur gauche 4
+    pymunk.Segment(space.static_body, (420, 640), (355, 710), 0), # Mur gauche 5
+    pymunk.Segment(space.static_body, (355, 710), (340, 835), 0), # Mur gauche 6
+    pymunk.Segment(space.static_body, (340, 835), (530, 980), 0), # Mur gauche 7
 
-    pymunk.Segment(space.static_body, (620, 310), (600, 320), 0), #mur ile droite 1
-    pymunk.Segment(space.static_body, (600, 320), (600, 340), 0), #mur ile droite 2
-    pymunk.Segment(space.static_body, (600, 340), (690, 360), 0), #mur ile droite 3
-    pymunk.Segment(space.static_body, (690, 360), (685, 330), 0), #mur ile droite 4
+    pymunk.Segment(space.static_body, (405, 240), (393, 280), 0), # Mur ile gauche 1
+    pymunk.Segment(space.static_body, (393, 280), (400, 320), 0), # Mur ile gauche 2
+    pymunk.Segment(space.static_body, (400, 320), (420, 370), 0), # Mur ile gauche 3
+    pymunk.Segment(space.static_body, (420, 370), (453, 413), 0), # Mur ile gauche 4
+    pymunk.Segment(space.static_body, (453, 413), (525, 370), 0), # Mur ile gauche 5
+    pymunk.Segment(space.static_body, (525, 370), (420, 320), 0), # Mur ile gauche 6
+    pymunk.Segment(space.static_body, (420, 320), (405, 280), 0), # Mur ile gauche 7
+    pymunk.Segment(space.static_body, (405, 280), (412, 240), 0), # Mur ile gauche 8
+    pymunk.Segment(space.static_body, (412, 240), (405, 240), 0), # Mur ile gauche 9
 
-    pymunk.Segment(space.static_body, (1000, 1000), (910, 270), 0), #mur de droite 2
-    pymunk.Segment(space.static_body, (910, 270), (880, 190), 0), #mur de droite 3
-    pymunk.Segment(space.static_body, (880, 190), (820, 135), 0), #mur de droite 4
-    pymunk.Segment(space.static_body, (820, 135), (760, 105), 0), #mur de droite 5
-    pymunk.Segment(space.static_body, (760, 105), (720, 120), 0), #mur de droite 6
-    pymunk.Segment(space.static_body, (720, 120), (719, 160), 0), #mur de droite 7
-    pymunk.Segment(space.static_body, (719, 160), (750, 180), 0), #mur de droite 8
-    pymunk.Segment(space.static_body, (750, 180), (800, 230), 0), #mur de droite 9
-    pymunk.Segment(space.static_body, (800, 230), (820, 270), 0), #mur de droite 10
-    pymunk.Segment(space.static_body, (820, 270), (780, 360), 0), #mur de droite 11
-    pymunk.Segment(space.static_body, (780, 360), (795, 370), 0), #mur de droite 12
-    pymunk.Segment(space.static_body, (795, 370), (820, 340), 0), #mur de droite 13
-    pymunk.Segment(space.static_body, (820, 340), (880, 370), 0), #mur de droite 14
-    pymunk.Segment(space.static_body, (880, 370), (845, 460), 0), #mur de droite 15
-    pymunk.Segment(space.static_body, (845, 460), (850, 550), 0), #mur de droite 16
-    pymunk.Segment(space.static_body, (850, 550), (905, 585), 0), #mur de droite 17
-    pymunk.Segment(space.static_body, (905, 585), (915, 660), 0), #mur de droite 18
-    pymunk.Segment(space.static_body, (915, 660), (950, 640), 0), #mur de droite 19
+    pymunk.Segment(space.static_body, (515, 185), (590, 150), 0), # Mur ile milieu 1
+    pymunk.Segment(space.static_body, (590, 150), (590, 120), 0), # Mur ile milieu 2
+    pymunk.Segment(space.static_body, (590, 120), (562, 105), 0), # Mur ile milieu 3
+    pymunk.Segment(space.static_body, (562, 105), (520, 140), 0), # Mur ile milieu 4
+    pymunk.Segment(space.static_body, (520, 140), (515, 185), 0), # Mur ile milieu 5
 
-    pymunk.Segment(space.static_body, (920, 730), (934, 864), 0), #mur de droite 19
-    pymunk.Segment(space.static_body, (934, 864), (795, 975), 0), #mur de droite 20
+    pymunk.Segment(space.static_body, (620, 310), (600, 320), 0), # Mur ile droite 1
+    pymunk.Segment(space.static_body, (600, 320), (600, 340), 0), # Mur ile droite 2
+    pymunk.Segment(space.static_body, (600, 340), (690, 360), 0), # Mur ile droite 3
+    pymunk.Segment(space.static_body, (690, 360), (685, 330), 0), # Mur ile droite 4
+    pymunk.Segment(space.static_body, (1000, 1000), (910, 270), 0), # Mur de droite 2
+    pymunk.Segment(space.static_body, (910, 270), (880, 190), 0), # Mur de droite 3
+    pymunk.Segment(space.static_body, (880, 190), (820, 135), 0), # Mur de droite 4
+    pymunk.Segment(space.static_body, (820, 135), (760, 105), 0), # Mur de droite 5
+    pymunk.Segment(space.static_body, (760, 105), (720, 120), 0), # Mur de droite 6
+    pymunk.Segment(space.static_body, (720, 120), (719, 160), 0), # Mur de droite 7
+    pymunk.Segment(space.static_body, (719, 160), (750, 180), 0), # Mur de droite 8
+    pymunk.Segment(space.static_body, (750, 180), (800, 230), 0), # Mur de droite 9
+    pymunk.Segment(space.static_body, (800, 230), (820, 270), 0), # Mur de droite 10
+    pymunk.Segment(space.static_body, (820, 270), (780, 360), 0), # Mur de droite 11
+    pymunk.Segment(space.static_body, (780, 360), (795, 370), 0), # Mur de droite 12
+    pymunk.Segment(space.static_body, (795, 370), (820, 340), 0), # Mur de droite 13
+    pymunk.Segment(space.static_body, (820, 340), (880, 370), 0), # Mur de droite 14
+    pymunk.Segment(space.static_body, (880, 370), (845, 460), 0), # Mur de droite 15
+    pymunk.Segment(space.static_body, (845, 460), (850, 550), 0), # Mur de droite 16
+    pymunk.Segment(space.static_body, (850, 550), (905, 585), 0), # Mur de droite 17
+    pymunk.Segment(space.static_body, (905, 585), (915, 660), 0), # Mur de droite 18
+    pymunk.Segment(space.static_body, (915, 660), (950, 640), 0), # Mur de droite 19
+    pymunk.Segment(space.static_body, (920, 730), (934, 864), 0), # Mur de droite 19
+    pymunk.Segment(space.static_body, (934, 864), (795, 975), 0), # Mur de droite 20
+    pymunk.Segment(space.static_body, (935, 960), (950, 990), 0), # Mur de droite 20
+    pymunk.Segment(space.static_body, (950, 990), (995, 990), 0), # Mur de droite 21
+    pymunk.Segment(space.static_body, (935, 960), (850, 1030), 0), # Mur de droite 20
+    pymunk.Segment(space.static_body, (850, 1030), (853, 1080), 0), # Mur de droite 21
 
-    pymunk.Segment(space.static_body, (935, 960), (950, 990), 0), #mur de droite 20
-    pymunk.Segment(space.static_body, (950, 990), (995, 990), 0), #mur de droite 21
-    pymunk.Segment(space.static_body, (935, 960), (850, 1030), 0), #mur de droite 20
-    pymunk.Segment(space.static_body, (850, 1030), (853, 1080), 0), #mur de droite 21
-
-
-    pymunk.Segment(space.static_body, (1000,1000), (1060,1000), 0) #sol de la balle
+    pymunk.Segment(space.static_body, (1000,1000), (1060,1000), 0) # Sol de la balle
 
     
 ]
@@ -345,7 +344,7 @@ ball_spawned = False # Ne démarre pas au lancement du jeu
 rounds = 3
 pygame.font.init()
 
-while running: #Valentin police
+while running:
     BG = pygame.image.load("bg.png")
     screen.blit(BG, (0, 0))
     my_font = pygame.font.SysFont('Comic Sans MS', 50)
@@ -404,7 +403,7 @@ while running: #Valentin police
                 game_over_sound.play() 
                 print('GAME OVER')
                 rounds = 0
-                res = pyautogui.confirm(text='Restart Game ?', title='Game Over', buttons=['Yes', 'No']) # Valentin
+                res = pyautogui.confirm(text='Restart Game ?', title='Game Over', buttons=['Yes', 'No'])
                 if res == "Yes" :
                     exec(f'import {script_name}') # Executer à nouveau le script
             else:
