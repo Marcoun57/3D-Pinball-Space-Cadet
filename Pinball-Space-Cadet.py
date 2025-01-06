@@ -127,7 +127,6 @@ static_lines = [
     
 ]
 
-
 for line in static_lines:
     line.elasticity = 0.7
     line.group = 1
@@ -136,8 +135,6 @@ space.add(*static_lines)
 fp = [(20, -20),(-132, 0),(20, 20)]
 mass = 30
 moment = pymunk.moment_for_poly(mass, fp)
-
-
 
 ### Flipper droit
 r_flipper_body = pymunk.Body(mass, moment)
@@ -153,7 +150,6 @@ j = pymunk.PinJoint(r_flipper_body, r_flipper_joint_body, (0, 0), (0, 0))
 
 s = pymunk.DampedRotarySpring(r_flipper_body, r_flipper_joint_body, 0.0, 20000000, 900000)
 space.add(j, s)
-
 
 ### Flipper gauche
 l_flipper_body = pymunk.Body(mass, moment)
@@ -171,7 +167,6 @@ space.add(j, s)
 
 r_flipper_shape.group = l_flipper_shape.group = 1
 r_flipper_shape.elasticity = l_flipper_shape.elasticity = 0.4
-
 
 def draw_flippers(screen, l_flipper_body, r_flipper_body):
     # Dessine le flipper de gauche
@@ -193,9 +188,6 @@ def draw_flippers(screen, l_flipper_body, r_flipper_body):
     rect = rotated_right_flipper.get_rect()
     rect.topleft = (r_flipper_pos.x - rect.width, r_flipper_pos.y - rect.height//2)
     screen.blit(rotated_right_flipper, rect)
-
-
-
 
 ### Bumpers (boules)
 plist = [(605, 250), (710, 230),(655,310),(445,110)]
@@ -232,7 +224,6 @@ shape24.collision_type = 5
 shape24.visible = False 
 space.add(body4, shape24)
 
-
 # Triangle
 vertices = [(22, -45), (78, 125), (10, 80)]
 body = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
@@ -251,8 +242,6 @@ shape4.elasticity = 1.4
 shape4.collision_type = 7
 shape4.visible = False 
 space.add(body, shape4)
-
-
 
 # Balle de départ
 def addBall():
@@ -273,8 +262,7 @@ def draw_balls(screen, balls):
         x, y = ball.body.position
         screen.blit(ball_image, (x - 15, y - 15))
 
-
-# Define collision callback function, will be called when ball touches bumpers
+# Définit la fonction de rappel de collision, sera appelée lorsque la balle touche les pare-chocs
 def bounceOnBump1(space, arbiter,dummy):
     global score
     score += 500
@@ -332,7 +320,7 @@ def SepCol4(space,arbiter,dummy):
 def SepCol5(space,arbiter,dummy):
     shape4.color = (191, 48, 48, 255)
 
-# Setup the collision callback function
+# Configurer la fonction de rappel de collision
 h1 = space.add_collision_handler(0, 3)
 h1.begin = bounceOnBump1
 h1.separate = SepCol1
@@ -351,10 +339,9 @@ h5.separate = SepCol5
 #h.separate = changeColor# Listening for key press events
 
 start_time = pygame.time.get_ticks()
-ball_spawned = False #ne spawn pas au lancement du jeu
+ball_spawned = False # Ne démarre pas au lancement du jeu
 rounds = 3
 pygame.font.init()
-
 
 while running:
     BG = pygame.image.load("bg.png")
@@ -376,11 +363,9 @@ while running:
             r_flipper_body.apply_impulse_at_local_point(Vec2d.unit() * -40000, (-100, 0))
             flipper_sound.play()
 
-
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_LEFT:
             l_flipper_body.apply_impulse_at_local_point(Vec2d.unit() * 40000, (-100, 0))
             flipper_sound.play()
-
 
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
             # Vérifie la balle est sr un ressort
@@ -394,7 +379,7 @@ while running:
         ball_spawned = True
 
 
-    ### Draw stuff
+    ### Dessine les choses
     space.debug_draw(draw_options)
 
     r_flipper_body.position = 790, 1000
@@ -405,13 +390,13 @@ while running:
     draw_balls(screen, balls)
     draw_flippers(screen, l_flipper_body, r_flipper_body)  # Ajoute la ligne
 
-    ### Remove any balls outside
+    ### Enlève les boules dehors
     to_remove = []
     for ball in balls:
         if ball.body.position.get_distance((300, 300)) > 1000:
             to_remove.append(ball)
             ball_exit_sound.play() 
-            #GameOver after 3 rounds of playing
+            # GameOver après 3 parties
             rounds -= 1
             if rounds <= 0 :
                 game_over_sound.play() 
@@ -419,7 +404,7 @@ while running:
                 rounds = 0
                 res = pyautogui.confirm(text='Restart Game ?', title='Game Over', buttons=['Yes', 'No'])
                 if res == "Yes" :
-                    exec(f'import {script_name}') # Re-run the script
+                    exec(f'import {script_name}') # Executer à nouveau le script
             else:
                 addBall()
                 print('Rounds remaining : ',rounds)
@@ -428,7 +413,7 @@ while running:
         space.remove(ball.body, ball)
         balls.remove(ball)
 
-    ### Update physics
+    ### Mettre à jour la phyisque
     dt = 1.0 / 60.0 / 5.0
     for x in range(5):
         space.step(dt)
