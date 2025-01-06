@@ -169,25 +169,27 @@ r_flipper_shape.group = l_flipper_shape.group = 1
 r_flipper_shape.elasticity = l_flipper_shape.elasticity = 0.4
 
 def draw_flippers(screen, l_flipper_body, r_flipper_body):
-    # Dessine le flipper de gauche
+    # Flipper gauche
     l_flipper_pos = l_flipper_body.position
     l_flipper_angle = l_flipper_body.angle
     rotated_left_flipper = pygame.transform.rotate(flipper_image_left, -l_flipper_angle * 180 / 3.14159)
-    
-    # Point de pivot au coin supérieur gauche pour le flipper gauche
-    rect = rotated_left_flipper.get_rect()
-    rect.topleft = (l_flipper_pos.x, l_flipper_pos.y - rect.height//2)
-    screen.blit(rotated_left_flipper, rect)
+    rect_left = rotated_left_flipper.get_rect()
+    # Calculer l'offset pour le pivot gauche
+    offset_x = rect_left.width * 0.1  # 10% de la largeur
+    offset_y = rect_left.height * 0.9  # 90% de la hauteur
+    rect_left.bottomleft = (l_flipper_pos.x - offset_x, l_flipper_pos.y + offset_y)
+    screen.blit(rotated_left_flipper, rect_left)
 
-    # Dessine le flipper de droite
+    # Flipper droit
     r_flipper_pos = r_flipper_body.position
     r_flipper_angle = r_flipper_body.angle
     rotated_right_flipper = pygame.transform.rotate(flipper_image_right, -r_flipper_angle * 180 / 3.14159)
-    
-    # Point de pivot au coin supérieur gauche pour le flipper droit
-    rect = rotated_right_flipper.get_rect()
-    rect.topleft = (r_flipper_pos.x - rect.width, r_flipper_pos.y - rect.height//2)
-    screen.blit(rotated_right_flipper, rect)
+    rect_right = rotated_right_flipper.get_rect()
+    # Calculer l'offset pour le pivot droit
+    offset_x = rect_right.width * 0.9  # 90% de la largeur
+    offset_y = rect_right.height * 0.9  # 90% de la hauteur
+    rect_right.bottomright = (r_flipper_pos.x + offset_x, r_flipper_pos.y + offset_y)
+    screen.blit(rotated_right_flipper, rect_right)
 
 ### Bumpers (boules)
 plist = [(605, 250), (710, 230),(655,310),(445,110)]
