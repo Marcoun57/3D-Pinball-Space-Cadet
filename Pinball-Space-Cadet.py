@@ -345,7 +345,7 @@ ball_spawned = False # Ne démarre pas au lancement du jeu
 rounds = 3
 pygame.font.init()
 
-while running:
+while running: #Valentin police
     BG = pygame.image.load("bg.png")
     screen.blit(BG, (0, 0))
     my_font = pygame.font.SysFont('Comic Sans MS', 50)
@@ -404,7 +404,7 @@ while running:
                 game_over_sound.play() 
                 print('GAME OVER')
                 rounds = 0
-                res = pyautogui.confirm(text='Restart Game ?', title='Game Over', buttons=['Yes', 'No'])
+                res = pyautogui.confirm(text='Restart Game ?', title='Game Over', buttons=['Yes', 'No']) # Valentin
                 if res == "Yes" :
                     exec(f'import {script_name}') # Executer à nouveau le script
             else:
