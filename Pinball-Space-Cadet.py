@@ -12,16 +12,6 @@ global score
 score = 0
 script_name = os.path.basename(__file__)
 
-# Fonction pour afficher la fenêtre de saisie de pseudo
-def get_username():
-    root = tk.Tk()
-    root.withdraw()  # Cache la fenêtre principale
-    username = simpledialog.askstring("Pseudo", "Entrez votre pseudo:")
-    root.destroy()
-    return username
-
-username = get_username()
-
 # Fonction pour initialiser la base de données
 def init_db():
     conn = sqlite3.connect('scores.db')
@@ -48,12 +38,74 @@ def save_score(username, score):
 
 init_db()
 
+class LED:
+    def __init__(self, position, color_on, color_off, toggle_interval, auto_toggle=True):
+        self.position = position
+        self.color_on = color_on
+        self.color_off = color_off
+        self.toggle_interval = toggle_interval
+        self.last_toggle_time = time.time()
+        self.is_on = False  # LED éteinte par défaut
+        self.auto_toggle = auto_toggle
+        self.turn_off_time = None  # Temps auquel la LED doit s'éteindre
+
+    def update(self):
+        current_time = time.time()
+        if self.auto_toggle:
+            if current_time - self.last_toggle_time >= self.toggle_interval:
+                self.is_on = not self.is_on
+                self.last_toggle_time = current_time
+        elif self.turn_off_time and current_time >= self.turn_off_time:
+            self.turn_off()
+            self.turn_off_time = None
+
+    def draw(self, screen):
+        color = self.color_on if self.is_on else self.color_off
+        pygame.draw.circle(screen, color, self.position, 6)
+
+    def turn_on(self):
+        self.is_on = True
+
+    def turn_off(self):
+        self.is_on = False
+
+# Initialiser les LEDs
+leds = [
+    LED((605, 236), (74, 85, 202), (14, 25, 132), 0.1, auto_toggle=False), # Bleu, auto_toggle désactivé
+    LED((707, 217), (74, 85, 202), (14, 25, 132), 0.1, auto_toggle=False),
+    LED((652, 295), (74, 85, 202), (14, 25, 132), 0.1, auto_toggle=False),
+
+    LED((817, 461), (251, 252, 83), (120, 120, 8), 0.5), # Jaune
+    LED((805, 495), (251, 252, 83), (120, 120, 8), 0.7),
+    LED((806, 535), (251, 252, 83), (120, 120, 8), 0.9),
+    LED((820, 572), (251, 252, 83), (120, 120, 8), 0.5),
+    LED((773, 390), (251, 252, 83), (120, 120, 8), 0.6),
+    LED((881, 741), (251, 252, 83), (120, 120, 8), 0.9),
+    LED((464, 635), (251, 252, 83), (120, 120, 8), 0.7),
+    LED((467, 607), (251, 252, 83), (120, 120, 8), 0.9),
+    LED((469, 579), (251, 252, 83), (120, 120, 8), 0.8),
+    LED((443, 300), (251, 252, 83), (120, 120, 8), 0.9),
+    LED((789, 273), (251, 252, 83), (120, 120, 8), 0.6),
+    LED((782, 250), (251, 252, 83), (120, 120, 8), 0.5),
+    LED((769, 231), (251, 252, 83), (120, 120, 8), 0.7),
+
+    LED((924, 551), (147, 73, 146), (97, 23, 96), 0.9), # Violet
+    LED((630, 445), (147, 73, 146), (97, 23, 96), 0.9),
+
+    LED((630, 416), (251, 252, 83), (155, 65, 16), 0.8), # Orange
+    
+    LED((631, 391), (74, 85, 202), (14, 25, 132), 0.7), # Bleu
+    
+    LED((748, 326), (74, 85, 202), (14, 25, 132), 0.6) 
+
+]
+
 pygame.init()
 screen = pygame.display.set_mode((1920, 1080))
 
 # Charge le son de démarrage
 startup_sound = mixer.Sound(r"son/WELCOME.mp3")
-startup_sound.play()
+
 
 # Charge le son du flipper
 flipper_sound = mixer.Sound(r"son/FLIPPER.mp3")
@@ -90,13 +142,75 @@ triangle_d_image = pygame.transform.scale(triangle_d_image, (100, 180))  # Ajust
 boule_image = pygame.image.load(r"texture/boule.png")
 boule_image = pygame.transform.scale(boule_image, (65, 65))  # Ajustez la taille si nécessaire
 
+# Charger l'image de fond pour la boîte de saisie
+background_image = pygame.image.load('texture/bg2.png')
+background_image = pygame.transform.scale(background_image, (1920, 1080))
+
+# Ajouter une variable pour stocker le pseudo
+username = ""
+
+# Ajouter une variable pour vérifier si le pseudo a été saisi
+username_entered = False
+
+
+
 
 clock = pygame.time.Clock()
 running = True
 
+
+
+# Variable pour vérifier si le pseudo a été entré
+username_entered = False
+
+# Afficher une boîte de saisie pour le pseudo
+font = pygame.font.Font('fonts/Pinball Fantasies.ttf', 50)
+input_box = pygame.Rect(760, 750, 400, 58)  # Position plus basse
+color_inactive = pygame.Color('lightskyblue3')
+color_active = pygame.Color('dodgerblue2')
+color = color_inactive
+active = False
+text = ''
+done = False
+
+while not done:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            if input_box.collidepoint(event.pos):
+                active = not active
+            else:
+                active = False
+            color = color_active if active else color_inactive
+        elif event.type == pygame.KEYDOWN:
+            if active:
+                if event.key == pygame.K_RETURN:
+                    username = text
+                    username_entered = True
+                    done = True
+                elif event.key == pygame.K_BACKSPACE:
+                    text = text[:-1]
+                else:
+                    text += event.unicode
+
+    screen.blit(background_image, (0, 0))  # Afficher l'image de fond
+    txt_surface = font.render(text, True, color)
+    width = max(400, txt_surface.get_width() + 10)
+    input_box.w = width
+    screen.blit(txt_surface, (input_box.x + 5, input_box.y + 5))
+    pygame.draw.rect(screen, color, input_box, 2)
+
+    pygame.display.flip()
+    clock.tick(30)
+
+startup_sound.play()
+
+
 ### Physique
 space = pymunk.Space()
-space.gravity = (0.0, 5000.0)
+space.gravity = (0.0, 3200.0)
 draw_options = pymunk.pygame_util.DrawOptions(screen)
 
 ### Balles
@@ -216,7 +330,7 @@ s = pymunk.DampedRotarySpring(l_flipper_body, l_flipper_joint_body, -0.0, 200000
 space.add(j, s)
 
 r_flipper_shape.group = l_flipper_shape.group = 1
-r_flipper_shape.elasticity = l_flipper_shape.elasticity = 0.4
+r_flipper_shape.elasticity = l_flipper_shape.elasticity = 0.1
 
 def draw_flippers(screen, l_flipper_body, r_flipper_body):
     # Flipper gauche
@@ -323,6 +437,8 @@ def bounceOnBump1(space, arbiter,dummy):
     mixer.music.load(r"son/BOULE.mp3") #boule gauche
     mixer.music.play()
     time.sleep(0.06)
+    leds[0].turn_on()  # Allume la première LED
+    leds[0].turn_off_time = time.time() + 0.2
     return True
 def bounceOnBump2(space, arbiter,dummy):
     global score
@@ -332,6 +448,8 @@ def bounceOnBump2(space, arbiter,dummy):
     mixer.music.load(r"son/BOULE.mp3") #boule droite
     mixer.music.play()
     time.sleep(0.06)
+    leds[1].turn_on()  # Allume la première LED
+    leds[1].turn_off_time = time.time() + 0.2
     return True
 def bounceOnBump3(space, arbiter,dummy):
     global score
@@ -341,6 +459,8 @@ def bounceOnBump3(space, arbiter,dummy):
     mixer.music.load(r"son/BOULE.mp3") #boule du milieu
     mixer.music.play()
     time.sleep(0.06)
+    leds[2].turn_on()  # Allume la première LED
+    leds[2].turn_off_time = time.time() + 0.2
     return True
 def bounceOnBump4(space, arbiter,dummy):
     global score
@@ -397,6 +517,9 @@ ball_number = 0
 last_ball_lost_time = None
 pygame.font.init()
 
+
+
+
 while running:
     # Dessine les murs
     space.debug_draw(draw_options)
@@ -418,7 +541,6 @@ while running:
     l_flipper_body.position = 525, 1000
     r_flipper_body.velocity = l_flipper_body.velocity = 3, 3
 
-
     draw_balls(screen, balls)
     draw_flippers(screen, l_flipper_body, r_flipper_body)  # Ajoute la ligne
 
@@ -439,6 +561,11 @@ while running:
 
     boule_4_pos = (412,78)  # Remplacez x et y par les coordonnées souhaitées
     screen.blit(boule_image, boule_4_pos)
+
+    # Mettre à jour et dessiner les LEDs
+    for led in leds:
+        led.update()
+        led.draw(screen)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -474,8 +601,6 @@ while running:
         addBall()
         ball_number += 1  # Incrémente le numéro de la balle
         last_ball_lost_time = None
-
-
 
 
     ### Enlève les boules dehors
