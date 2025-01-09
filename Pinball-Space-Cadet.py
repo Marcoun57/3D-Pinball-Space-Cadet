@@ -342,6 +342,8 @@ h5.separate = SepCol5
 start_time = pygame.time.get_ticks()
 ball_spawned = False # Ne démarre pas au lancement du jeu
 rounds = 3
+ball_number = 0
+last_ball_lost_time = None
 pygame.font.init()
 
 while running:
@@ -350,6 +352,9 @@ while running:
     my_font = pygame.font.Font('fonts/Pinball Fantasies.ttf', 50)
     text_surface = my_font.render((str(score)), True, (95, 95, 225))
     screen.blit(text_surface, (1540,514))
+
+    ball_number_surface = my_font.render(f"{ball_number}", True, (95, 95, 225))
+    screen.blit(ball_number_surface, (1625, 403))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -378,6 +383,13 @@ while running:
     if not ball_spawned and pygame.time.get_ticks() - start_time > 6000:
         addBall()
         ball_spawned = True
+        ball_number += 1
+
+        # vérifie si un délai s'est écoulé depuis la dernière perte de balle
+    if last_ball_lost_time and pygame.time.get_ticks() - last_ball_lost_time > 2800:
+        addBall()
+        ball_number += 1  # Incrémente le numéro de la balle
+        last_ball_lost_time = None
 
 
     ### Dessine les choses
@@ -407,8 +419,8 @@ while running:
                 if res == "Yes" :
                     exec(f'import {script_name}') # Executer à nouveau le script
             else:
-                addBall()
-                print('Rounds remaining : ',rounds)
+                last_ball_lost_time = pygame.time.get_ticks()  # Enregistre le temps de la perte de balle
+                print('Rounds remaining : ', rounds)
 
     for ball in to_remove:
         space.remove(ball.body, ball)
