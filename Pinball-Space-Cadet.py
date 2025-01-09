@@ -35,7 +35,14 @@ def init_db():
 def save_score(username, score):
     conn = sqlite3.connect('scores.db')
     c = conn.cursor()
-    c.execute("INSERT INTO scores (username, score) VALUES (?, ?)", (username, score))
+    c.execute("SELECT score FROM scores WHERE username = ?", (username,))
+    result = c.fetchone()
+    if result:
+        existing_score = result[0]
+        if score > existing_score:
+            c.execute("UPDATE scores SET score = ? WHERE username = ?", (score, username))
+    else:
+        c.execute("INSERT INTO scores (username, score) VALUES (?, ?)", (username, score))
     conn.commit()
     conn.close()
 
@@ -69,7 +76,7 @@ flipper_image_left = pygame.image.load(r"texture/flipper_g.png")
 flipper_image_left = pygame.transform.scale(flipper_image_left, (110, 90))  # Ajuste la taille de l'image
 
 flipper_image_right = pygame.image.load(r"texture/flipper_d.png")
-flipper_image_right = pygame.transform.scale(flipper_image_right, (100, 20))  # Ajuste la taille de l'image
+flipper_image_right = pygame.transform.scale(flipper_image_right, (110, 90))  # Ajuste la taille de l'image
 
 
 clock = pygame.time.Clock()
@@ -206,8 +213,8 @@ def draw_flippers(screen, l_flipper_body, r_flipper_body):
     rotated_left_flipper = pygame.transform.rotate(flipper_image_left, -l_flipper_angle * 180 / 3.14159)
     rect_left = rotated_left_flipper.get_rect()
     # Calculer l'offset pour le pivot gauche
-    offset_x = rect_left.width * 0.1  # 10% de la largeur
-    offset_y = rect_left.height * 0.9  # 90% de la hauteur
+    offset_x = rect_left.width * 0.15  # 15% de la largeur
+    offset_y = rect_left.height * 0.8  # 80% de la hauteur
     rect_left.bottomleft = (l_flipper_pos.x - offset_x, l_flipper_pos.y + offset_y)
     screen.blit(rotated_left_flipper, rect_left)
 
@@ -217,8 +224,8 @@ def draw_flippers(screen, l_flipper_body, r_flipper_body):
     rotated_right_flipper = pygame.transform.rotate(flipper_image_right, -r_flipper_angle * 180 / 3.14159)
     rect_right = rotated_right_flipper.get_rect()
     # Calculer l'offset pour le pivot droit
-    offset_x = rect_right.width * 0.9  # 90% de la largeur
-    offset_y = rect_right.height * 0.9  # 90% de la hauteur
+    offset_x = rect_right.width * 0.15  # 90% de la largeur
+    offset_y = rect_right.height * 0.8  # 90% de la hauteur
     rect_right.bottomright = (r_flipper_pos.x + offset_x, r_flipper_pos.y + offset_y)
     screen.blit(rotated_right_flipper, rect_right)
 
