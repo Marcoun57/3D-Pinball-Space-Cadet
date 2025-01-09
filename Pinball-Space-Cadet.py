@@ -401,7 +401,7 @@ while running:
     # Dessine les murs
     space.debug_draw(draw_options)
 
-    BG = pygame.image.load("bg.png")
+    BG = pygame.image.load("texture/bg.png")
     screen.blit(BG, (0, 0))
     my_font = pygame.font.Font('fonts/Pinball Fantasies.ttf', 50)
     text_surface = my_font.render((str(score)), True, (95, 95, 225))
