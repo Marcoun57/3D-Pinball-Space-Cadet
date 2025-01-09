@@ -69,7 +69,7 @@ game_over_sound = mixer.Sound(r"son/GAME-OVER.mp3")
 
 # Charge de l'image de la balle
 ball_image = pygame.image.load(r"texture/balle.png")
-ball_image = pygame.transform.scale(ball_image, (30, 30))  # Ajuste la taille de l'image
+ball_image = pygame.transform.scale(ball_image, (28, 28))  # Ajuste la taille de l'image
 
 # Charge les images des flippers
 flipper_image_left = pygame.image.load(r"texture/flipper_g.png")
@@ -299,7 +299,7 @@ space.add(body, shape4)
 def addBall():
     global ballbody, shape1
     mass = 2
-    radius = 14
+    radius = 15
     inertia = pymunk.moment_for_circle(mass, 0, radius, (0, 0))
     ballbody = pymunk.Body(mass, inertia)
     ballbody.position = 1025, 960
