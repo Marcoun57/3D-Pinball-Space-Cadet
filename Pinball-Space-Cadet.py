@@ -3,11 +3,23 @@ import pygame, pymunk, pyautogui
 import pymunk.pygame_util
 from pygame import mixer
 from pymunk import Vec2d
+import tkinter as tk
+from tkinter import simpledialog, messagebox
 
 mixer.init()
 global score
 score = 0
 script_name = os.path.basename(__file__)
+
+# Fonction pour afficher la fenêtre de saisie de pseudo
+def get_username():
+    root = tk.Tk()
+    root.withdraw()  # Cache la fenêtre principale
+    username = simpledialog.askstring("Pseudo", "Entrez votre pseudo:")
+    root.destroy()
+    return username
+
+username = get_username()
 
 pygame.init()
 screen = pygame.display.set_mode((1920, 1080))
@@ -356,6 +368,10 @@ while running:
     ball_number_surface = my_font.render(f"{ball_number}", True, (95, 95, 225))
     screen.blit(ball_number_surface, (1625, 403))
 
+    # Affiche le pseudo
+    username_surface = my_font.render(f"{username}", True, (95, 95, 225))
+    screen.blit(username_surface, (1230, 623))
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -415,9 +431,15 @@ while running:
                 game_over_sound.play() 
                 print('GAME OVER')
                 rounds = 0
-                res = pyautogui.confirm(text='Restart Game ?', title='Game Over', buttons=['Yes', 'No'])
-                if res == "Yes" :
-                    exec(f'import {script_name}') # Executer à nouveau le script
+                root = tk.Tk()
+                root.withdraw()
+                res = messagebox.askyesno("Game Over", "Restart Game?")
+                root.destroy()
+                if res:
+                    os.execv(sys.executable, ['python'] + sys.argv)  # Redémarre le script
+                else:
+                    pygame.quit()
+                    sys.exit()
             else:
                 last_ball_lost_time = pygame.time.get_ticks()  # Enregistre le temps de la perte de balle
                 print('Rounds remaining : ', rounds)
