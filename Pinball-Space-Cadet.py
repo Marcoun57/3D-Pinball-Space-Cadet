@@ -5,6 +5,7 @@ from pygame import mixer
 from pymunk import Vec2d
 import tkinter as tk
 from tkinter import simpledialog, messagebox
+import sqlite3
 
 mixer.init()
 global score
@@ -20,6 +21,25 @@ def get_username():
     return username
 
 username = get_username()
+
+# Fonction pour initialiser la base de données
+def init_db():
+    conn = sqlite3.connect('scores.db')
+    c = conn.cursor()
+    c.execute('''CREATE TABLE IF NOT EXISTS scores
+                 (username TEXT, score INTEGER)''')
+    conn.commit()
+    conn.close()
+
+# Fonction pour enregistrer le score dans la base de données
+def save_score(username, score):
+    conn = sqlite3.connect('scores.db')
+    c = conn.cursor()
+    c.execute("INSERT INTO scores (username, score) VALUES (?, ?)", (username, score))
+    conn.commit()
+    conn.close()
+
+init_db()
 
 pygame.init()
 screen = pygame.display.set_mode((1920, 1080))
@@ -431,6 +451,7 @@ while running:
                 game_over_sound.play() 
                 print('GAME OVER')
                 rounds = 0
+                save_score(username, score)  # Enregistre le score dans la base de données
                 root = tk.Tk()
                 root.withdraw()
                 res = messagebox.askyesno("Game Over", "Restart Game?")
