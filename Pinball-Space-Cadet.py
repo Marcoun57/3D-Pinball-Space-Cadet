@@ -78,6 +78,18 @@ flipper_image_left = pygame.transform.scale(flipper_image_left, (110, 90))  # Aj
 flipper_image_right = pygame.image.load(r"texture/flipper_d.png")
 flipper_image_right = pygame.transform.scale(flipper_image_right, (110, 90))  # Ajuste la taille de l'image
 
+# Charge l'image du triangle gauche
+triangle_g_image = pygame.image.load(r"texture/triangle_g.png")
+triangle_g_image = pygame.transform.scale(triangle_g_image, (100, 180))  # Ajustez la taille si nécessaire
+
+# Charge l'image du triangle droite
+triangle_d_image = pygame.image.load(r"texture/triangle_d.png")
+triangle_d_image = pygame.transform.scale(triangle_d_image, (100, 180))  # Ajustez la taille si nécessaire
+
+# Charge l'image de la boule
+boule_image = pygame.image.load(r"texture/boule.png")
+boule_image = pygame.transform.scale(boule_image, (65, 65))  # Ajustez la taille si nécessaire
+
 
 clock = pygame.time.Clock()
 running = True
@@ -386,6 +398,9 @@ last_ball_lost_time = None
 pygame.font.init()
 
 while running:
+    # Dessine les murs
+    space.debug_draw(draw_options)
+
     BG = pygame.image.load("bg.png")
     screen.blit(BG, (0, 0))
     my_font = pygame.font.Font('fonts/Pinball Fantasies.ttf', 50)
@@ -398,6 +413,32 @@ while running:
     # Affiche le pseudo
     username_surface = my_font.render(f"{username}", True, (95, 95, 225))
     screen.blit(username_surface, (1230, 623))
+
+    r_flipper_body.position = 790, 1000
+    l_flipper_body.position = 525, 1000
+    r_flipper_body.velocity = l_flipper_body.velocity = 3, 3
+
+
+    draw_balls(screen, balls)
+    draw_flippers(screen, l_flipper_body, r_flipper_body)  # Ajoute la ligne
+
+    triangle_g_pos = (430,725)  # Remplacez x et y par les coordonnées souhaitées
+    screen.blit(triangle_g_image, triangle_g_pos)
+
+    triangle_d_pos = (780,725)  # Remplacez x et y par les coordonnées souhaitées
+    screen.blit(triangle_d_image, triangle_d_pos)
+
+    boule_1_pos = (620,275)  # Remplacez x et y par les coordonnées souhaitées
+    screen.blit(boule_image, boule_1_pos)
+
+    boule_2_pos = (573,217)  # Remplacez x et y par les coordonnées souhaitées
+    screen.blit(boule_image, boule_2_pos)
+
+    boule_3_pos = (675,198)  # Remplacez x et y par les coordonnées souhaitées
+    screen.blit(boule_image, boule_3_pos)
+
+    boule_4_pos = (412,78)  # Remplacez x et y par les coordonnées souhaitées
+    screen.blit(boule_image, boule_4_pos)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -435,16 +476,7 @@ while running:
         last_ball_lost_time = None
 
 
-    ### Dessine les choses
-    space.debug_draw(draw_options)
 
-    r_flipper_body.position = 790, 1000
-    l_flipper_body.position = 525, 1000
-    r_flipper_body.velocity = l_flipper_body.velocity = 3, 3
-
-    space.debug_draw(draw_options)
-    draw_balls(screen, balls)
-    draw_flippers(screen, l_flipper_body, r_flipper_body)  # Ajoute la ligne
 
     ### Enlève les boules dehors
     to_remove = []
