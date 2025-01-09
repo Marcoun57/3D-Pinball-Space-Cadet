@@ -13,30 +13,30 @@ pygame.init()
 screen = pygame.display.set_mode((1920, 1080))
 
 # Charge le son de démarrage
-startup_sound = mixer.Sound(r"son\WELCOME.mp3")
+startup_sound = mixer.Sound(r"son/WELCOME.mp3")
 startup_sound.play()
 
 # Charge le son du flipper
-flipper_sound = mixer.Sound(r"son\FLIPPER.mp3")
+flipper_sound = mixer.Sound(r"son/FLIPPER.mp3")
 
 # Charge le son de lancement
-launch_sound = mixer.Sound(r"son\LAUNCH.mp3")
+launch_sound = mixer.Sound(r"son/LAUNCH.mp3")
 
 # Charge le son de sortie de la balle
-ball_exit_sound = mixer.Sound(r"son\RETRY.mp3")
+ball_exit_sound = mixer.Sound(r"son/RETRY.mp3")
 
 # Son de fin de partie
-game_over_sound = mixer.Sound(r"son\GAME-OVER.mp3")
+game_over_sound = mixer.Sound(r"son/GAME-OVER.mp3")
 
 # Charge de l'image de la balle
-ball_image = pygame.image.load(r"texture\balle.png")
+ball_image = pygame.image.load(r"texture/balle.png")
 ball_image = pygame.transform.scale(ball_image, (30, 30))  # Ajuste la taille de l'image
 
 # Charge les images des flippers
-flipper_image_left = pygame.image.load(r"texture\flipper_g.png")
+flipper_image_left = pygame.image.load(r"texture/flipper_g.png")
 flipper_image_left = pygame.transform.scale(flipper_image_left, (110, 90))  # Ajuste la taille de l'image
 
-flipper_image_right = pygame.image.load(r"texture\flipper_d.png")
+flipper_image_right = pygame.image.load(r"texture/flipper_d.png")
 flipper_image_right = pygame.transform.scale(flipper_image_right, (100, 20))  # Ajuste la taille de l'image
 
 
@@ -269,7 +269,7 @@ def bounceOnBump1(space, arbiter,dummy):
     score += 500
     os.system('cls')
     print("SCORE : ",score)
-    mixer.music.load(r"son\BOULE.mp3") #boule gauche
+    mixer.music.load(r"son/BOULE.mp3") #boule gauche
     mixer.music.play()
     time.sleep(0.06)
     return True
@@ -278,7 +278,7 @@ def bounceOnBump2(space, arbiter,dummy):
     score += 500
     os.system('cls')
     print("SCORE : ",score)
-    mixer.music.load(r"son\BOULE.mp3") #boule droite
+    mixer.music.load(r"son/BOULE.mp3") #boule droite
     mixer.music.play()
     time.sleep(0.06)
     return True
@@ -287,7 +287,7 @@ def bounceOnBump3(space, arbiter,dummy):
     score += 500
     os.system('cls')
     print("SCORE : ",score)
-    mixer.music.load(r"son\BOULE.mp3") #boule du milieu
+    mixer.music.load(r"son/BOULE.mp3") #boule du milieu
     mixer.music.play()
     time.sleep(0.06)
     return True
@@ -296,7 +296,7 @@ def bounceOnBump4(space, arbiter,dummy):
     score += 500
     os.system('cls')
     print("SCORE : ",score)
-    mixer.music.load(r"son\TRIANGLE.mp3") #triangle gauche
+    mixer.music.load(r"son/TRIANGLE.mp3") #triangle gauche
     mixer.music.play()
     time.sleep(0.06)
     return True
@@ -306,7 +306,7 @@ def bounceOnBump5(space, arbiter,dummy):
     os.system('cls')
     print("SCORE : ",score)
     print("SCORE : ",score)
-    mixer.music.load(r"son\TRIANGLE.mp3") #triangle droite
+    mixer.music.load(r"son/TRIANGLE.mp3") #triangle droite
     mixer.music.play()
     time.sleep(0.06)
     return True
@@ -347,9 +347,9 @@ pygame.font.init()
 while running:
     BG = pygame.image.load("bg.png")
     screen.blit(BG, (0, 0))
-    my_font = pygame.font.SysFont('Comic Sans MS', 50)
-    text_surface = my_font.render((str(score)), True, (0, 0, 255))
-    screen.blit(text_surface, (1620,507))
+    my_font = pygame.font.Font('fonts/Pinball Fantasies.ttf', 50)
+    text_surface = my_font.render((str(score)), True, (95, 95, 225))
+    screen.blit(text_surface, (1540,514))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
