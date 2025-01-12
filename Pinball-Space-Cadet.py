@@ -428,7 +428,7 @@ def draw_balls(screen, balls):
 def bounceOnBump1(space, arbiter,dummy):
     global score
     score += 500
-    os.system('cls')
+    clear()
     print("SCORE : ",score)
     mixer.music.load(r"son/BOULE.mp3") #boule gauche
     mixer.music.play()
@@ -439,7 +439,7 @@ def bounceOnBump1(space, arbiter,dummy):
 def bounceOnBump2(space, arbiter,dummy):
     global score
     score += 500
-    os.system('cls')
+    clear()
     print("SCORE : ",score)
     mixer.music.load(r"son/BOULE.mp3") #boule droite
     mixer.music.play()
@@ -450,7 +450,7 @@ def bounceOnBump2(space, arbiter,dummy):
 def bounceOnBump3(space, arbiter,dummy):
     global score
     score += 500
-    os.system('cls')
+    clear()
     print("SCORE : ",score)
     mixer.music.load(r"son/BOULE.mp3") #boule du milieu
     mixer.music.play()
@@ -461,7 +461,7 @@ def bounceOnBump3(space, arbiter,dummy):
 def bounceOnBump4(space, arbiter,dummy):
     global score
     score += 500
-    os.system('cls')
+    clear()
     print("SCORE : ",score)
     mixer.music.load(r"son/TRIANGLE.mp3") #triangle gauche
     mixer.music.play()
@@ -470,7 +470,7 @@ def bounceOnBump4(space, arbiter,dummy):
 def bounceOnBump5(space, arbiter,dummy):
     global score
     score += 500
-    os.system('cls')
+    clear()
     print("SCORE : ",score)
     print("SCORE : ",score)
     mixer.music.load(r"son/TRIANGLE.mp3") #triangle droite
