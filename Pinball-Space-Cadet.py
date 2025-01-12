@@ -12,6 +12,10 @@ global score
 score = 0
 script_name = os.path.basename(__file__)
 
+# Fonction de compatibilité d'effacement d'écran entre les systèmes d'exploitation
+def clear():
+    _ = system("cls")
+
 # Fonction pour initialiser la base de données
 def init_db():
     conn = sqlite3.connect('scores.db')
