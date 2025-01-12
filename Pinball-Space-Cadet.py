@@ -106,7 +106,6 @@ screen = pygame.display.set_mode((1920, 1080))
 # Charge le son de démarrage
 startup_sound = mixer.Sound(r"son/WELCOME.mp3")
 
-
 # Charge le son du flipper
 flipper_sound = mixer.Sound(r"son/FLIPPER.mp3")
 
@@ -152,13 +151,8 @@ username = ""
 # Ajouter une variable pour vérifier si le pseudo a été saisi
 username_entered = False
 
-
-
-
 clock = pygame.time.Clock()
 running = True
-
-
 
 # Variable pour vérifier si le pseudo a été entré
 username_entered = False
@@ -206,7 +200,6 @@ while not done:
     clock.tick(30)
 
 startup_sound.play()
-
 
 ### Physique
 space = pymunk.Space()
@@ -288,7 +281,6 @@ static_lines = [
 
     pymunk.Segment(space.static_body, (1000,1000), (1060,1000), 0) # Sol de la balle
 
-    
 ]
 
 for line in static_lines:
@@ -517,9 +509,6 @@ ball_number = 0
 last_ball_lost_time = None
 pygame.font.init()
 
-
-
-
 while running:
     # Dessine les murs
     space.debug_draw(draw_options)
@@ -601,7 +590,6 @@ while running:
         addBall()
         ball_number += 1  # Incrémente le numéro de la balle
         last_ball_lost_time = None
-
 
     ### Enlève les boules dehors
     to_remove = []
