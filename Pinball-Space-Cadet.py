@@ -14,7 +14,12 @@ script_name = os.path.basename(__file__)
 
 # Fonction de compatibilité d'effacement d'écran entre les systèmes d'exploitation
 def clear():
-    _ = system("cls")
+ 
+    if name == "nt":
+        _ = system("cls")
+ 
+    else:
+        _ = system("clear")
 
 # Fonction pour initialiser la base de données
 def init_db():
