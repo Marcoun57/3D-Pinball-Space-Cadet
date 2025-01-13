@@ -1,4 +1,5 @@
 import random, datetime, time, os, sys
+from os import system, name
 import pygame, pymunk, pyautogui
 import pymunk.pygame_util
 from pygame import mixer
